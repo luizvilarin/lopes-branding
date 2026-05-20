@@ -1,23 +1,339 @@
-import React, { useState, useEffect } from "react";
-import { Menu } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Menu, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 const WEBHOOK_URL = "https://seu-webhook.exemplo.com/lopes-pedidos";
 const PAYMENT_URL = "https://link-de-pagamento.exemplo.com/lopes";
 
 const BASE = import.meta.env.BASE_URL;
-
 function img(path: string) {
   return BASE.replace(/\/$/, "") + "/images/" + path;
 }
 
+type Product = {
+  id: number;
+  title: string;
+  fabric: string;
+  image: string;
+  gallery: { src: string; label: string; objectPosition: string }[];
+  specs: { key: string; value: string }[];
+};
+
+const PRODUCTS: Product[] = [
+  {
+    id: 1, title: "CAMISA POLO MASCULINA", fabric: "Piquet Pima com elastano",
+    image: img("polo-1.png"),
+    gallery: [
+      { src: img("polo-1.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-1.png"), label: "COLARINHO", objectPosition: "center top" },
+      { src: img("polo-1.png"), label: "BORDADO", objectPosition: "30% 35%" },
+      { src: img("polo-1.png"), label: "TECIDO", objectPosition: "center 60%" },
+    ],
+    specs: [{ key: "GÊNERO", value: "MASCULINO" }, { key: "TECIDO", value: "PIQUET PIMA" }, { key: "COMPOSIÇÃO", value: "92% ALGODÃO 8% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+  },
+  {
+    id: 2, title: "CAMISA POLO MASCULINA", fabric: "Cotton Pima com elastano",
+    image: img("polo-2.png"),
+    gallery: [
+      { src: img("polo-2.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-2.png"), label: "COLARINHO", objectPosition: "center top" },
+      { src: img("polo-2.png"), label: "BORDADO", objectPosition: "30% 35%" },
+      { src: img("polo-2.png"), label: "TECIDO", objectPosition: "center 60%" },
+    ],
+    specs: [{ key: "GÊNERO", value: "MASCULINO" }, { key: "TECIDO", value: "COTTON PIMA" }, { key: "COMPOSIÇÃO", value: "95% ALGODÃO 5% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+  },
+  {
+    id: 3, title: "CAMISA POLO MASCULINA", fabric: "Piquet Egípcio premium",
+    image: img("polo-3.png"),
+    gallery: [
+      { src: img("polo-3.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-3.png"), label: "COLARINHO", objectPosition: "center top" },
+      { src: img("polo-3.png"), label: "BORDADO", objectPosition: "30% 35%" },
+      { src: img("polo-3.png"), label: "TECIDO", objectPosition: "center 60%" },
+    ],
+    specs: [{ key: "GÊNERO", value: "MASCULINO" }, { key: "TECIDO", value: "PIQUET EGÍPCIO" }, { key: "COMPOSIÇÃO", value: "100% ALGODÃO EGÍPCIO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+  },
+  {
+    id: 4, title: "CAMISA POLO FEMININA", fabric: "Piquet Pima com elastano",
+    image: img("polo-4.png"),
+    gallery: [
+      { src: img("polo-4.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-4.png"), label: "COLARINHO", objectPosition: "center top" },
+      { src: img("polo-4.png"), label: "BORDADO", objectPosition: "30% 35%" },
+      { src: img("polo-4.png"), label: "TECIDO", objectPosition: "center 60%" },
+    ],
+    specs: [{ key: "GÊNERO", value: "FEMININO" }, { key: "TECIDO", value: "PIQUET PIMA" }, { key: "COMPOSIÇÃO", value: "92% ALGODÃO 8% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+  },
+  {
+    id: 5, title: "CAMISA POLO FEMININA", fabric: "Cotton Pima com elastano",
+    image: img("polo-5.png"),
+    gallery: [
+      { src: img("polo-5.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-5.png"), label: "COLARINHO", objectPosition: "center top" },
+      { src: img("polo-5.png"), label: "BORDADO", objectPosition: "30% 35%" },
+      { src: img("polo-5.png"), label: "TECIDO", objectPosition: "center 60%" },
+    ],
+    specs: [{ key: "GÊNERO", value: "FEMININO" }, { key: "TECIDO", value: "COTTON PIMA" }, { key: "COMPOSIÇÃO", value: "95% ALGODÃO 5% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+  },
+  {
+    id: 6, title: "CAMISA POLO FEMININA", fabric: "Piquet Egípcio premium",
+    image: img("polo-6.png"),
+    gallery: [
+      { src: img("polo-6.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-6.png"), label: "COLARINHO", objectPosition: "center top" },
+      { src: img("polo-6.png"), label: "BORDADO", objectPosition: "30% 35%" },
+      { src: img("polo-6.png"), label: "TECIDO", objectPosition: "center 60%" },
+    ],
+    specs: [{ key: "GÊNERO", value: "FEMININO" }, { key: "TECIDO", value: "PIQUET EGÍPCIO" }, { key: "COMPOSIÇÃO", value: "100% ALGODÃO EGÍPCIO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+  },
+];
+
+const UNIDADES = ["BUENO", "MARISTA", "JARDIM GOIÁS", "OESTE", "GESTÃO PATRIMONIAL"];
+const SIZES = ["P", "M", "G", "GG", "GGG"];
+
+const CSS = `
+  :root { --black:#0A0A0A; --white:#FFFFFF; --gl:#F0EFED; --gm:#C8C5BE; --gd:#5A5A5A; }
+  * { box-sizing:border-box; border-radius:0 !important; }
+  .font-anton { font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:-0.02em; }
+  .font-barlow { font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; }
+  .filter-gs { filter:grayscale(100%) contrast(108%) brightness(95%); }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker { animation:marquee 20s linear infinite; will-change:transform; }
+  .ticker-slow { animation:marquee 28s linear infinite; will-change:transform; }
+  .card-wrap:hover .card-img { transform:scale(1.02); }
+  .card-img { transition:transform 0.3s ease; }
+  .custom-scroll::-webkit-scrollbar { width:4px; }
+  .custom-scroll::-webkit-scrollbar-track { background:#F0EFED; }
+  .custom-scroll::-webkit-scrollbar-thumb { background:#0A0A0A; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeSlideIn { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:translateX(0)} }
+  .anim-in { animation:fadeSlideIn 0.4s ease forwards; }
+  .page-in { animation:fadeUp 0.35s ease forwards; }
+  .thumb-active { outline:2px solid #0A0A0A; outline-offset:2px; }
+`;
+
+/* ─── Product Page ──────────────────────────────────────────── */
+function ProductPage({
+  product,
+  onClose,
+  onOrder,
+}: {
+  product: Product;
+  onClose: () => void;
+  onOrder: (p: Product) => void;
+}) {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const prev = useCallback(() => setActiveIdx(i => (i - 1 + product.gallery.length) % product.gallery.length), [product]);
+  const next = useCallback(() => setActiveIdx(i => (i + 1) % product.gallery.length), [product]);
+
+  useEffect(() => {
+    setActiveIdx(0);
+  }, [product.id]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [prev, next, onClose]);
+
+  const active = product.gallery[activeIdx];
+
+  return (
+    <div className="fixed inset-0 z-50 bg-white overflow-y-auto page-in" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+      {/* Top bar */}
+      <div className="sticky top-0 z-20 h-12 bg-white border-b-2 border-[#0A0A0A] flex items-center justify-between px-4 md:px-8">
+        <button
+          onClick={onClose}
+          className="flex items-center gap-2 font-barlow font-bold text-[12px] tracking-[0.12em] hover:opacity-50 transition-opacity"
+        >
+          <ArrowLeft size={14} />
+          VOLTAR À COLEÇÃO
+        </button>
+        <div className="font-anton text-lg leading-none">LOPES IMOBILIÁRIA</div>
+        <div className="font-barlow text-[11px] tracking-[0.1em] text-[#C8C5BE]">INTERNO</div>
+      </div>
+
+      <div className="max-w-[1280px] mx-auto border-x-2 border-[#0A0A0A]">
+        {/* Breadcrumb */}
+        <div className="border-b border-[#D0CFC9] px-6 md:px-10 py-3 flex items-center gap-2 font-barlow text-[11px] tracking-[0.1em] text-[#5A5A5A]">
+          <button onClick={onClose} className="hover:text-[#0A0A0A] transition-colors">COLEÇÃO</button>
+          <span>›</span>
+          <span className="text-[#0A0A0A] font-bold">{product.title}</span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 border-b-2 border-[#0A0A0A]">
+          {/* Gallery panel */}
+          <div className="border-b-2 lg:border-b-0 lg:border-r-2 border-[#0A0A0A] flex flex-col bg-[#F0EFED]">
+            {/* Main image */}
+            <div className="relative overflow-hidden bg-[#F0EFED]" style={{ aspectRatio: "3/4" }}>
+              <img
+                key={activeIdx}
+                src={active.src}
+                alt={product.title}
+                className="w-full h-full object-cover filter-gs page-in"
+                style={{ objectPosition: active.objectPosition }}
+              />
+
+              {/* View label badge */}
+              <div className="absolute top-4 left-4 bg-white border-2 border-[#0A0A0A] px-3 py-1">
+                <span className="font-barlow font-bold text-[10px] tracking-[0.15em]">{active.label}</span>
+              </div>
+
+              {/* Counter */}
+              <div className="absolute top-4 right-4 bg-white border-2 border-[#0A0A0A] px-3 py-1">
+                <span className="font-barlow font-bold text-[10px] tracking-[0.1em]">{activeIdx + 1}/{product.gallery.length}</span>
+              </div>
+
+              {/* Arrow buttons */}
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border-2 border-[#0A0A0A] flex items-center justify-center hover:bg-[#0A0A0A] hover:text-white transition-colors"
+                aria-label="Foto anterior"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border-2 border-[#0A0A0A] flex items-center justify-center hover:bg-[#0A0A0A] hover:text-white transition-colors"
+                aria-label="Próxima foto"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+
+            {/* Thumbnail strip */}
+            <div className="flex gap-2 p-4 border-t-2 border-[#0A0A0A] bg-white">
+              {product.gallery.map((g, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIdx(i)}
+                  className={`flex-1 overflow-hidden border-2 border-[#0A0A0A] bg-[#F0EFED] ${i === activeIdx ? "thumb-active" : "opacity-50 hover:opacity-80 transition-opacity"}`}
+                  style={{ aspectRatio: "2/3" }}
+                  aria-label={g.label}
+                >
+                  <img
+                    src={g.src}
+                    alt={g.label}
+                    className="w-full h-full object-cover filter-gs"
+                    style={{ objectPosition: g.objectPosition }}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Thumb labels */}
+            <div className="flex gap-2 px-4 pb-4 bg-white">
+              {product.gallery.map((g, i) => (
+                <div key={i} className="flex-1 text-center">
+                  <span className={`font-barlow text-[9px] tracking-[0.08em] ${i === activeIdx ? "text-[#0A0A0A] font-bold" : "text-[#C8C5BE]"}`}>{g.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Info panel */}
+          <div className="flex flex-col custom-scroll overflow-y-auto">
+            {/* Product header */}
+            <div className="border-b-2 border-[#0A0A0A] p-6 md:p-10">
+              <p className="font-barlow font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] mb-2">
+                LOPES IMOBILIÁRIA — COLEÇÃO CORPORATIVA
+              </p>
+              <h1 className="font-anton text-[clamp(32px,4vw,56px)] leading-[0.9] mb-3">{product.title}</h1>
+              <p className="font-barlow font-medium text-[14px] tracking-[0.08em] text-[#5A5A5A]">{product.fabric}</p>
+            </div>
+
+            {/* Specs table */}
+            <div className="border-b-2 border-[#0A0A0A] p-6 md:p-10">
+              <p className="font-barlow font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] mb-4">ESPECIFICAÇÕES</p>
+              <div className="divide-y divide-[#E5E5E5]">
+                {product.specs.map((s) => (
+                  <div key={s.key} className="flex justify-between py-3 font-barlow text-[13px] tracking-wide">
+                    <span className="text-[#5A5A5A]">{s.key}</span>
+                    <span className="font-bold">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Fixed note */}
+            <div className="border-b-2 border-[#0A0A0A] p-6 md:p-10 bg-[#F0EFED]">
+              <div className="flex items-start gap-4">
+                <span className="text-red-600 text-2xl font-bold mt-0.5">✳</span>
+                <div className="font-barlow text-[12px] leading-relaxed tracking-[0.06em] text-[#5A5A5A]">
+                  <p className="font-bold text-[#0A0A0A] mb-1">PADRÃO LOPES — DETALHES FIXOS</p>
+                  <p>Todas as peças são fornecidas exclusivamente na <strong className="text-[#0A0A0A]">COR PRETA</strong> com <strong className="text-[#0A0A0A]">BORDADO DE 3.5CM</strong> posicionado conforme padrão corporativo.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Size guide */}
+            <div className="border-b-2 border-[#0A0A0A] p-6 md:p-10">
+              <p className="font-barlow font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] mb-4">TAMANHOS DISPONÍVEIS</p>
+              <div className="flex gap-2">
+                {SIZES.map(s => (
+                  <div key={s} className="flex-1 border-2 border-[#D0CFC9] py-2 text-center font-barlow font-bold text-[13px] text-[#5A5A5A]">
+                    {s}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="p-6 md:p-10 mt-auto">
+              <button
+                onClick={() => onOrder(product)}
+                className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-5 font-anton text-2xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150 flex items-center justify-between px-6"
+              >
+                <span>FAZER PEDIDO</span>
+                <span>▶</span>
+              </button>
+              <p className="font-barlow text-[10px] tracking-[0.1em] text-[#C8C5BE] text-center mt-3">USO INTERNO — PORTAL DE UNIFORMES LOPES</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Other products strip */}
+        <div className="bg-white p-6 md:p-10">
+          <p className="font-barlow font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] mb-4">OUTROS MODELOS</p>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {PRODUCTS.filter(p => p.id !== product.id).map(p => (
+              <button
+                key={p.id}
+                onClick={() => { window.scrollTo(0, 0); }}
+                className="flex-shrink-0 w-28 text-left group"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <div
+                  className="w-full aspect-[2/3] overflow-hidden border-2 border-[#D0CFC9] mb-2 bg-[#F0EFED] group-hover:border-[#0A0A0A] transition-colors"
+                  onClick={() => { setActiveIdx(0); onClose(); setTimeout(() => {}, 0); }}
+                >
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="w-full h-full object-cover filter-gs"
+                    onClick={(e) => { e.stopPropagation(); }}
+                  />
+                </div>
+                <p className="font-barlow font-bold text-[10px] tracking-[0.06em] leading-tight text-[#0A0A0A] group-hover:opacity-60 transition-opacity">{p.title}</p>
+                <p className="font-barlow text-[9px] tracking-[0.05em] text-[#5A5A5A]">{p.fabric}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main App ──────────────────────────────────────────────── */
 export function LopesApp() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<{
-    id: number;
-    title: string;
-    fabric: string;
-    image: string;
-  } | null>(null);
+  const [productPage, setProductPage] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [quantity, setQuantity] = useState(1);
   const [corretorName, setCorretorName] = useState("");
@@ -28,19 +344,14 @@ export function LopesApp() {
   const [orderId, setOrderId] = useState("");
   const [formError, setFormError] = useState("");
 
-  const products = [
-    { id: 1, title: "CAMISA POLO MASCULINA", fabric: "Piquet Pima com elastano", image: img("polo-1.png") },
-    { id: 2, title: "CAMISA POLO MASCULINA", fabric: "Cotton Pima com elastano", image: img("polo-2.png") },
-    { id: 3, title: "CAMISA POLO MASCULINA", fabric: "Piquet Egípcio premium", image: img("polo-3.png") },
-    { id: 4, title: "CAMISA POLO FEMININA", fabric: "Piquet Pima com elastano", image: img("polo-4.png") },
-    { id: 5, title: "CAMISA POLO FEMININA", fabric: "Cotton Pima com elastano", image: img("polo-5.png") },
-    { id: 6, title: "CAMISA POLO FEMININA", fabric: "Piquet Egípcio premium", image: img("polo-6.png") },
-  ];
+  const openPage = (product: Product) => {
+    setProductPage(product);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-  const unidades = ["BUENO", "MARISTA", "JARDIM GOIÁS", "OESTE", "GESTÃO PATRIMONIAL"];
-  const sizes = ["P", "M", "G", "GG", "GGG"];
+  const closePage = () => setProductPage(null);
 
-  const openDrawer = (product: typeof products[0]) => {
+  const openDrawer = (product: Product) => {
     setSelectedProduct(product);
     setIsDrawerOpen(true);
     setIsSuccess(false);
@@ -79,9 +390,7 @@ export function LopesApp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-    } catch {
-      // fire-and-forget
-    }
+    } catch { /* fire-and-forget */ }
 
     setOrderId(id);
     setIsLoading(false);
@@ -100,45 +409,25 @@ export function LopesApp() {
   };
 
   useEffect(() => {
-    document.body.style.overflow = isDrawerOpen ? "hidden" : "";
+    document.body.style.overflow = (isDrawerOpen || productPage !== null) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [isDrawerOpen]);
-
-  const css = `
-    :root {
-      --black: #0A0A0A;
-      --white: #FFFFFF;
-      --gray-light: #F0EFED;
-      --gray-mid: #C8C5BE;
-      --gray-dark: #5A5A5A;
-    }
-    * { box-sizing: border-box; border-radius: 0 !important; }
-    .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
-    .font-barlow { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; }
-    .filter-gs { filter: grayscale(100%) contrast(108%) brightness(95%); }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .ticker { animation: marquee 20s linear infinite; will-change: transform; }
-    .ticker-slow { animation: marquee 28s linear infinite; will-change: transform; }
-    .card-wrap:hover .card-img { transform: scale(1.02); }
-    .card-img { transition: transform 0.3s ease; }
-    .custom-scroll::-webkit-scrollbar { width: 4px; }
-    .custom-scroll::-webkit-scrollbar-track { background: #F0EFED; }
-    .custom-scroll::-webkit-scrollbar-thumb { background: #0A0A0A; }
-    .noise::before {
-      content: ""; position: absolute; inset: 0; opacity: 0.35; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-    @keyframes fadeSlideIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
-    .anim-in { animation: fadeSlideIn 0.4s ease forwards; }
-  `;
+  }, [isDrawerOpen, productPage]);
 
   return (
     <div
       className="min-h-screen bg-white text-[#0A0A0A] overflow-x-hidden selection:bg-[#0A0A0A] selection:text-white"
       style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
     >
-      <style dangerouslySetInnerHTML={{ __html: css }} />
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+
+      {/* PRODUCT PAGE OVERLAY */}
+      {productPage && (
+        <ProductPage
+          product={productPage}
+          onClose={closePage}
+          onOrder={(p) => { closePage(); openDrawer(p); }}
+        />
+      )}
 
       {/* NAV */}
       <nav className="h-12 w-full bg-white border-b-2 border-[#0A0A0A] flex items-center justify-between px-4 md:px-8 sticky top-0 z-40">
@@ -224,24 +513,39 @@ export function LopesApp() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 px-6 md:px-10 mt-6 border-t border-[#D0CFC9]">
-            {products.map((product) => (
+            {PRODUCTS.map((product) => (
               <div key={product.id} className="card-wrap flex flex-col border-b border-r border-l border-[#D0CFC9] p-4 bg-white hover:bg-[#F0EFED] transition-colors duration-300">
-                <div className="aspect-[2/3] w-full overflow-hidden bg-[#F0EFED] border border-[#D0CFC9] mb-4">
+                {/* Clickable image → product page */}
+                <button
+                  onClick={() => openPage(product)}
+                  className="aspect-[2/3] w-full overflow-hidden bg-[#F0EFED] border border-[#D0CFC9] mb-4 cursor-pointer relative group"
+                  aria-label={`Ver galeria de ${product.title}`}
+                >
                   <img
                     src={product.image}
                     alt={product.title}
                     className="w-full h-full object-cover filter-gs card-img"
                   />
-                </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
+                    <span className="bg-white border-2 border-[#0A0A0A] px-4 py-2 font-barlow font-bold text-[11px] tracking-[0.1em]">VER GALERIA ✳</span>
+                  </div>
+                </button>
+
                 <div className="flex flex-col flex-1 font-barlow text-[#0A0A0A]">
                   <h3 className="font-bold text-[16px] tracking-[0.06em] leading-tight mb-1">{product.title}</h3>
                   <p className="font-medium text-[11px] tracking-[0.10em] text-[#5A5A5A] mb-6">{product.fabric}</p>
-                  <div className="mt-auto">
+                  <div className="mt-auto flex items-center justify-between">
                     <button
                       onClick={() => openDrawer(product)}
                       className="text-[12px] font-bold tracking-[0.12em] flex items-center hover:opacity-60 transition-opacity"
                     >
-                      SELECIONAR MODELO <span className="ml-2 text-[10px]">▶</span>
+                      FAZER PEDIDO <span className="ml-2 text-[10px]">▶</span>
+                    </button>
+                    <button
+                      onClick={() => openPage(product)}
+                      className="text-[11px] font-medium tracking-[0.08em] text-[#5A5A5A] hover:text-[#0A0A0A] transition-colors underline underline-offset-2"
+                    >
+                      VER FOTOS
                     </button>
                   </div>
                 </div>
@@ -292,7 +596,6 @@ export function LopesApp() {
           <div className="absolute inset-0" onClick={() => setIsDrawerOpen(false)} />
 
           <div className="relative w-full max-w-[480px] bg-[#F0EFED] border-l-2 border-[#0A0A0A] h-full shadow-2xl flex flex-col custom-scroll overflow-y-auto">
-            {/* Drawer Header */}
             <div className="border-b-2 border-[#0A0A0A] p-6 md:p-8 flex justify-between items-center bg-white sticky top-0 z-10">
               <h2 className="font-anton text-4xl">{isSuccess ? "PEDIDO CONFIRMADO" : "SEU PEDIDO"}</h2>
               <button
@@ -355,7 +658,6 @@ export function LopesApp() {
                 </div>
               ) : (
                 <div className="flex flex-col h-full">
-                  {/* Product preview */}
                   <div className="flex gap-4 mb-8 bg-white border-2 border-[#0A0A0A] p-2">
                     <div className="w-20 aspect-[2/3] bg-gray-100 border border-[#D0CFC9] overflow-hidden flex-shrink-0">
                       <img src={selectedProduct?.image} alt="Produto" className="w-full h-full object-cover filter-gs" />
@@ -366,7 +668,6 @@ export function LopesApp() {
                     </div>
                   </div>
 
-                  {/* Quantity */}
                   <div className="mb-8">
                     <label className="font-barlow font-bold text-[12px] tracking-[0.1em] block mb-2">QUANTIDADE</label>
                     <div className="flex border-2 border-[#0A0A0A] w-32 bg-white">
@@ -381,18 +682,15 @@ export function LopesApp() {
                     </div>
                   </div>
 
-                  {/* Size */}
                   <div className="mb-8">
                     <label className="font-barlow font-bold text-[12px] tracking-[0.1em] block mb-3">TAMANHO</label>
                     <div className="flex gap-2">
-                      {sizes.map((size) => (
+                      {SIZES.map((size) => (
                         <button
                           key={size}
                           onClick={() => { setSelectedSize(size); setFormError(""); }}
                           className={`flex-1 border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[13px] tracking-[0.06em] transition-colors duration-150 ${
-                            selectedSize === size
-                              ? "bg-[#0A0A0A] text-white"
-                              : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
+                            selectedSize === size ? "bg-[#0A0A0A] text-white" : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
                           }`}
                         >
                           {size}
@@ -401,7 +699,6 @@ export function LopesApp() {
                     </div>
                   </div>
 
-                  {/* Corretor */}
                   <div className="mb-8">
                     <label className="font-barlow font-bold text-[12px] tracking-[0.1em] block mb-2">NOME DO CORRETOR</label>
                     <input
@@ -413,18 +710,15 @@ export function LopesApp() {
                     />
                   </div>
 
-                  {/* Unidade */}
                   <div className="mb-8">
                     <label className="font-barlow font-bold text-[12px] tracking-[0.1em] block mb-3">UNIDADE</label>
                     <div className="grid grid-cols-2 gap-2">
-                      {unidades.map((u) => (
+                      {UNIDADES.map((u) => (
                         <button
                           key={u}
                           onClick={() => { setUnidade(u); setFormError(""); }}
                           className={`border-2 border-[#0A0A0A] py-3 px-2 font-barlow font-bold text-[11px] tracking-[0.06em] leading-tight transition-colors duration-150 ${
-                            unidade === u
-                              ? "bg-[#0A0A0A] text-white"
-                              : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
+                            unidade === u ? "bg-[#0A0A0A] text-white" : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
                           } ${u === "GESTÃO PATRIMONIAL" ? "col-span-2" : ""}`}
                         >
                           {u}
@@ -433,7 +727,6 @@ export function LopesApp() {
                     </div>
                   </div>
 
-                  {/* Fixed details */}
                   <div className="mb-8 border-2 border-[#D0CFC9] p-4 bg-white">
                     <p className="font-barlow font-bold text-[11px] tracking-[0.1em] text-[#5A5A5A] mb-3">DETALHES FIXOS</p>
                     <div className="space-y-2 font-barlow text-[13px] tracking-wide">
@@ -448,14 +741,12 @@ export function LopesApp() {
                     </div>
                   </div>
 
-                  {/* Error */}
                   {formError && (
                     <div className="mb-4 border-2 border-red-600 bg-red-50 p-3 font-barlow font-bold text-[12px] tracking-[0.06em] text-red-600">
                       {formError}
                     </div>
                   )}
 
-                  {/* Submit */}
                   <div className="mt-auto">
                     <button
                       onClick={handleCheckout}
