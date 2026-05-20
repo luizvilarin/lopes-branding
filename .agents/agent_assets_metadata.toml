@@ -1,0 +1,44 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "ZKAmqcUNRhJffuIi0kU2P"
+uri = "file://artifacts/mockup-sandbox/public/images/polo-1.png"
+type = "image"
+title = "male model black polo"
+
+[[generated]]
+id = "5R1lhlVt-BOm9yzOIIB1A"
+uri = "file://artifacts/mockup-sandbox/public/images/polo-2.png"
+type = "image"
+title = "male model black polo pose"
+
+[[generated]]
+id = "g4Z_xwZr9EHefo6W0f9ve"
+uri = "file://artifacts/mockup-sandbox/public/images/polo-3.png"
+type = "image"
+title = "male model architecture polo"
+
+[[generated]]
+id = "1xoky6NtjLld3W99aIp6d"
+uri = "file://artifacts/mockup-sandbox/public/images/polo-4.png"
+type = "image"
+title = "female model black polo"
+
+[[generated]]
+id = "iUEOxOzh-DAYkMHrsVcP7"
+uri = "file://artifacts/mockup-sandbox/public/images/polo-5.png"
+type = "image"
+title = "female model black polo pose"
+
+[[generated]]
+id = "AC2-Kla5og7oDEBQSuziF"
+uri = "file://artifacts/mockup-sandbox/public/images/polo-6.png"
+type = "image"
+title = "female model minimalism polo"
+
+[[generated]]
+id = "_bXO8megPCSSLJgYUw1Ph"
+uri = "file://artifacts/mockup-sandbox/public/images/editorial-hero.png"
+type = "image"
+title = "wide editorial fashion shot"

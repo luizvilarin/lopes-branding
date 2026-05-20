@@ -1,0 +1,91 @@
+Build a high-end, high-contrast Brutalist Minimalist Single-Page Web Application for internal corporate apparel orders for "Lopes Imobiliária". The site acts as a premium internal showcase and an enwrapped order funnel.
+
+
+
+Use the exact Design Tokens and JSON specification provided below to build the UI with React (Next.js/Tailwind or standard modern React setup) and render it beautifully.
+
+
+
+### DESIGN TOKENS & SPECIFICATION (JSON)
+
+[json.json]
+
+
+
+### SYSTEM ARCHITECTURE & FUNCTIONAL REQUIREMENTS
+
+1. SINGLE PAGE APPLICATION: Create a fluid, fully responsive single-page experience (Desktop 12-col, Tablet 8-col, Mobile 4-col) utilizing a zero-gutter brutalist grid layout where elements are strictly bounded by crisp black borders (--border-thick: 2px solid #0A0A0A).
+
+2. PRODUCT VARIATIONS:
+
+   - Models: Camisa Polo Feminina, Camisa Polo Masculina.
+
+   - Fabrics: Piquet Pima com elastano, Cotton Pima com elastano, Piquet Egípcio premium.
+
+   - Hardcoded Defaults: Every single item is strictly Black ("Cor Preta") and includes a 3.5cm embroidery ("Bordado de 3.5cm").
+
+3. NO LIVE PRICES SHOWN: In alignment with the JSON ("showPrice": false), do not show price tags. Focus entirely on typography, fabric descriptions, and high-fashion style selection.
+
+4. CORRETOR DATA COLLECTION & INTERNAL FLOW:
+
+   - Cart / Order Side Drawer or Section: Before proceeding to checkout, the user MUST fill out a brutalist-style form with:
+
+     * Nome do Corretor (Text input, underlined, uppercase placeholders).
+
+     * Unidade do Corretor (Radio buttons or large grid buttons. Options: Bueno, Marista, Jardim Goiás, Oeste, Gestão Patrimonial).
+
+5. MVP CHECKOUT & AUTOMATION READY:
+
+   - Provide a functional interactive state where clicking "Concluir Pedido" validates the Corretor's info and chosen items.
+
+   - Mimic or configure a webhook dispatch capability (POST payload matching: {corretor_nome, unidade, pedido_id, produtos: [{modelo, tecido, quantidade, cor, detalhe}]}) that triggers an automated workflow, followed by opening an external payment link (placeholder or redirect logic).
+
+
+
+### SECTION-BY-SECTION INTERFACE GUIDELINES
+
+
+
+- HERO SECTION: 
+
+  Full-bleed layout bounded by '--border-thick'. Split into a sub-grid layout:
+
+  * Left Panel (Width 1/3, background: --color-gray-mid with the specified subtle SVG noise texture overlay): Features a large 8-point geometric Asterisk (✳) centered at the top. The lower half features a clean descriptive copy block: "LOPES PROPOSES HIGH-PERFORMANCE PIECES DEVELOPED WITH PREMIUM MATERIALS FOR OUR CORPORATE ELITE." followed by a primary brutalist action button.
+
+  * Right Panel (Width 2/3): Massive, imposing header reading "ALWAYS LOPES" or "DAILY CLASSIC" in '--font-display' (Anton, uppercase, line-height 0.88, negative tracking). Background features a high-contrast grayscale placeholder graphic representing refined editorial imagery.
+
+
+
+- TICKER TAPE MARQUEES:
+
+  Inject continuous horizontal scrolling text tickers spanning full width. One horizontal ticker separating the hero and the product catalog ("IN ORDER TO KEEP THE BRAND STANDARD ✳ LOPES UNIFORMS ✳"). Inject at least one diagonal/slanted ticker tape overlapping sections with a -3deg rotation ("SPECIAL ARCHIVE ARCHITECTS ✳ DESIGNED FOR SUCCESS").
+
+
+
+- PRODUCT CATALOG (Asymmetric Editorial Grid):
+
+  Display cards separated cleanly by 1px borders (--border-light). Each card shows a grayscale fashion product layout. On hover, apply a subtle scale (1.02) and contrast shift. Text below is left-aligned, entirely uppercase, using Barlow Condensed:
+
+  * Top: Model Title (e.g., "CAMISA POLO MASCULINA")
+
+  * Subtitle: Fabric Composition (e.g., "PIQUET PIMA COM ELASTANO")
+
+  * CTA: A simple clickable text element reading "SELECIONAR MODELO ▶" using tracking-wide.
+
+
+
+- ORDER DRAWER / INTEGRATED CHECKOUT PANEL:
+
+  A clean, industrial panel that activates when a product variation is selected. It features a responsive layout with solid black fields, no rounded corners (--radius: 0px). Includes the Corretor Name input and a stark 5-button selector grid for the Unidades (Bueno, Marista, Jardim Goiás, Oeste, Gestão Patrimonial). The "FINALIZAR" button has a sharp hover transition (instant color inversion to white background, black text).
+
+
+
+- BRANDED INDUSTRIAL FOOTER:
+
+  Deep solid black background (--color-footer-black). At the very bottom, render a massive, screen-spanning responsive wordmark displaying "LOPES" or "OFFICINE LOPES" using font-display (Anton), set to fluid typography sizing (clamp). Include minimal, uppercase utility links colored in gray-dark.
+
+
+
+### REPLIT UI ENGINE INSTRUCTIONS
+
+Ensure all components are interactive, utilize state management for product selection, item quantities, and form inputs. Implement smooth, hardware-accelerated animations for marqees and hover states using standard Tailwind/CSS tools. Avoid any default component libraries; construct the UI blocks cleanly from raw elements to match the anti-decorative, brutalist high-fashion look.
