@@ -164,13 +164,13 @@ export function LopesApp() {
             <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8 bg-red-600">
               <span className="text-[80px] font-bold leading-none text-white">✳</span>
             </div>
-            <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#0A0A0A]">
-              <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[280px]">
+            <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#C8C5BE]">
+              <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-[#0A0A0A] mb-8 max-w-[280px]">
                 LOPES PROPOSES HIGH-PERFORMANCE PIECES DEVELOPED WITH PREMIUM MATERIALS FOR OUR CORPORATE ELITE.
               </p>
               <a
                 href="#colecao"
-                className="bg-white text-[#0A0A0A] border-2 border-white py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full hover:bg-[#0A0A0A] hover:text-white transition-colors duration-150"
+                className="bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150"
               >
                 <span>VER COLEÇÃO</span>
                 <span>▶</span>
