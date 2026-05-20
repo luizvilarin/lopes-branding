@@ -243,8 +243,8 @@ export function LopesApp() {
         <section className="grid grid-cols-1 md:grid-cols-3 border-b-2 border-[#0A0A0A]">
           {/* Left Panel */}
           <div className="col-span-1 border-b-2 md:border-b-0 md:border-r-2 border-[#0A0A0A] bg-[#C8C5BE] noise-bg flex flex-col min-h-[60vh] md:min-h-[80vh]">
-            <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8">
-              <span className="text-[80px] font-bold leading-none text-[#0A0A0A]">✳</span>
+            <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8 bg-red-600">
+              <span className="text-[80px] font-bold leading-none text-white">✳</span>
             </div>
             <div className="flex-1 flex flex-col justify-end p-6 md:p-10">
               <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-[#0A0A0A] mb-8 max-w-[280px]">
