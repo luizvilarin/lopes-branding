@@ -8,8 +8,10 @@ export function LopesApp() {
   const [quantity, setQuantity] = useState(1);
   const [corretorName, setCorretorName] = useState("");
   const [unidade, setUnidade] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [orderId, setOrderId] = useState("");
+  const [formError, setFormError] = useState("");
 
   const products = [
     {
@@ -52,6 +54,8 @@ export function LopesApp() {
 
   const unidades = ["BUENO", "MARISTA", "JARDIM GOIÁS", "OESTE", "GESTÃO PATRIMONIAL"];
 
+  const sizes = ["P", "M", "G", "GG", "GGG"];
+
   const openDrawer = (product: any) => {
     setSelectedProduct(product);
     setIsDrawerOpen(true);
@@ -59,13 +63,24 @@ export function LopesApp() {
     setQuantity(1);
     setCorretorName("");
     setUnidade("");
+    setSelectedSize("");
+    setFormError("");
   };
 
   const handleCheckout = () => {
-    if (!corretorName || !unidade) {
-      alert("Por favor, preencha todos os campos.");
+    if (!corretorName.trim()) {
+      setFormError("Preencha o nome do corretor.");
       return;
     }
+    if (!unidade) {
+      setFormError("Selecione a unidade.");
+      return;
+    }
+    if (!selectedSize) {
+      setFormError("Selecione o tamanho.");
+      return;
+    }
+    setFormError("");
     const id = "#LOPES-" + Math.floor(1000 + Math.random() * 9000);
     setOrderId(id);
     setIsSuccess(true);
@@ -78,6 +93,7 @@ export function LopesApp() {
         {
           modelo: selectedProduct.title,
           tecido: selectedProduct.fabric,
+          tamanho: selectedSize,
           quantidade: quantity,
           cor: "Preta",
           detalhe: "Bordado 3.5cm"
@@ -92,6 +108,8 @@ export function LopesApp() {
     setTimeout(() => {
       setIsSuccess(false);
       setSelectedProduct(null);
+      setSelectedSize("");
+      setFormError("");
     }, 300);
   };
 
@@ -410,6 +428,10 @@ export function LopesApp() {
                         <span className="text-[#5A5A5A]">UNIDADE</span>
                         <span className="font-bold">{unidade}</span>
                       </div>
+                      <div className="flex justify-between">
+                        <span className="text-[#5A5A5A]">TAMANHO</span>
+                        <span className="font-bold">{selectedSize}</span>
+                      </div>
                       <div className="flex justify-between mt-4 pt-4 border-t border-[#E5E5E5]">
                         <span className="text-[#5A5A5A] max-w-[120px]">{selectedProduct?.title}<br/><span className="text-[10px]">{selectedProduct?.fabric}</span></span>
                         <span className="font-bold">{quantity}x</span>
@@ -450,6 +472,25 @@ export function LopesApp() {
                         className="flex-1 w-full text-center font-barlow font-bold text-[16px] outline-none appearance-none"
                       />
                       <button onClick={() => setQuantity(quantity + 1)} className="w-10 h-10 flex items-center justify-center font-bold border-l-2 border-[#0A0A0A] hover:bg-[#F0EFED]">+</button>
+                    </div>
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="font-barlow font-bold text-[12px] tracking-[0.1em] block mb-3">TAMANHO</label>
+                    <div className="flex gap-2">
+                      {sizes.map((size) => (
+                        <button
+                          key={size}
+                          onClick={() => { setSelectedSize(size); setFormError(""); }}
+                          className={`flex-1 border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[13px] tracking-[0.06em] transition-colors duration-150 ${
+                            selectedSize === size
+                              ? "bg-[#0A0A0A] text-white"
+                              : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
@@ -495,9 +536,14 @@ export function LopesApp() {
                   </div>
 
                   <div className="mt-auto pt-4">
+                    {formError && (
+                      <p className="font-barlow font-bold text-[11px] tracking-[0.08em] text-red-600 mb-3 border-l-2 border-red-600 pl-3">
+                        {formError.toUpperCase()}
+                      </p>
+                    )}
                     <button 
                       onClick={handleCheckout}
-                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide btn-invert"
+                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150"
                     >
                       FINALIZAR PEDIDO
                     </button>
