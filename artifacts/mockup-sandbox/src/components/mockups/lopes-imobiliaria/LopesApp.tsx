@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { X, ChevronRight, Menu } from "lucide-react";
 
+const WEBHOOK_URL = "https://seu-webhook.exemplo.com/lopes-pedidos";
+const PAYMENT_URL = "https://link-de-pagamento.exemplo.com/lopes";
+
 export function LopesApp() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
@@ -10,6 +13,7 @@ export function LopesApp() {
   const [unidade, setUnidade] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [orderId, setOrderId] = useState("");
   const [formError, setFormError] = useState("");
 
@@ -67,7 +71,7 @@ export function LopesApp() {
     setFormError("");
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!corretorName.trim()) {
       setFormError("Preencha o nome do corretor.");
       return;
@@ -81,10 +85,9 @@ export function LopesApp() {
       return;
     }
     setFormError("");
-    const id = "#LOPES-" + Math.floor(1000 + Math.random() * 9000);
-    setOrderId(id);
-    setIsSuccess(true);
+    setIsLoading(true);
 
+    const id = "#LOPES-" + Math.floor(1000 + Math.random() * 9000);
     const payload = {
       corretor_nome: corretorName,
       unidade,
@@ -100,13 +103,27 @@ export function LopesApp() {
         }
       ]
     };
-    console.log("Webhook payload:", payload);
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      // Webhook failed — continue to success anyway (fire-and-forget)
+    }
+
+    setOrderId(id);
+    setIsLoading(false);
+    setIsSuccess(true);
   };
 
   const resetOrder = () => {
     setIsDrawerOpen(false);
     setTimeout(() => {
       setIsSuccess(false);
+      setIsLoading(false);
       setSelectedProduct(null);
       setSelectedSize("");
       setFormError("");
@@ -185,6 +202,10 @@ export function LopesApp() {
     @keyframes marquee {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .animate-marquee {
@@ -439,10 +460,19 @@ export function LopesApp() {
                     </div>
                   </div>
                   
-                  <div className="mt-auto">
-                    <button 
+                  <div className="mt-auto flex flex-col gap-3">
+                    <a
+                      href={PAYMENT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150 flex items-center justify-between px-6"
+                    >
+                      <span>IR PARA PAGAMENTO</span>
+                      <span>▶</span>
+                    </a>
+                    <button
                       onClick={resetOrder}
-                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors"
+                      className="w-full bg-transparent text-[#0A0A0A] border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[12px] tracking-[0.12em] hover:bg-[#F0EFED] transition-colors duration-150"
                     >
                       NOVO PEDIDO
                     </button>
@@ -541,11 +571,29 @@ export function LopesApp() {
                         {formError.toUpperCase()}
                       </p>
                     )}
-                    <button 
+                    <button
                       onClick={handleCheckout}
-                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150"
+                      disabled={isLoading}
+                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                     >
-                      FINALIZAR PEDIDO
+                      {isLoading ? (
+                        <>
+                          <span
+                            style={{
+                              display: "inline-block",
+                              width: 18,
+                              height: 18,
+                              border: "2px solid #ffffff40",
+                              borderTopColor: "#fff",
+                              borderRadius: "50%",
+                              animation: "spin 0.7s linear infinite",
+                            }}
+                          />
+                          ENVIANDO...
+                        </>
+                      ) : (
+                        "FINALIZAR PEDIDO"
+                      )}
                     </button>
                   </div>
                 </div>
