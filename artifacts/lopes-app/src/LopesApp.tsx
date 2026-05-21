@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Menu, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
-const WEBHOOK_URL = "https://seu-webhook.exemplo.com/lopes-pedidos";
-const PAYMENT_URL = "https://link-de-pagamento.exemplo.com/lopes";
+const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL || "https://seu-webhook.exemplo.com/lopes-pedidos";
+const PAYMENT_URL = import.meta.env.VITE_PAYMENT_URL || "https://link-de-pagamento.exemplo.com/lopes";
 
 const BASE = import.meta.env.BASE_URL;
 function img(path: string) {

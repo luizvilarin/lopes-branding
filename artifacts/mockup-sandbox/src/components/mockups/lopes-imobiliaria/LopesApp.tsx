@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { X, ChevronRight, Menu } from "lucide-react";
 
-const WEBHOOK_URL = "https://seu-webhook.exemplo.com/lopes-pedidos";
-const PAYMENT_URL = "https://link-de-pagamento.exemplo.com/lopes";
+const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL || "https://seu-webhook.exemplo.com/lopes-pedidos";
+const PAYMENT_URL = import.meta.env.VITE_PAYMENT_URL || "https://link-de-pagamento.exemplo.com/lopes";
 
 export function LopesApp() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
