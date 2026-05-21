@@ -9,6 +9,13 @@ function img(path: string) {
   return BASE.replace(/\/$/, "") + "/images/" + path;
 }
 
+type ProductDescription = {
+  summary: string;
+  composition: string;
+  highlights: string[];
+  usability: string[];
+};
+
 type Product = {
   id: number;
   title: string;
@@ -16,74 +23,232 @@ type Product = {
   image: string;
   gallery: { src: string; label: string; objectPosition: string }[];
   specs: { key: string; value: string }[];
+  price: number;
+  description: ProductDescription;
 };
 
 const PRODUCTS: Product[] = [
   {
-    id: 1, title: "CAMISA POLO MASCULINA", fabric: "Piquet Pima com elastano",
+    id: 1,
+    title: "CAMISA POLO MASCULINA",
+    fabric: "Piquet Pima com elastano",
     image: img("polo-1.png"),
+    price: 99.90,
     gallery: [
       { src: img("polo-1.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("polo-1.png"), label: "COLARINHO", objectPosition: "center top" },
-      { src: img("polo-1.png"), label: "BORDADO", objectPosition: "30% 35%" },
-      { src: img("polo-1.png"), label: "TECIDO", objectPosition: "center 60%" },
+      { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-1-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
-    specs: [{ key: "GÊNERO", value: "MASCULINO" }, { key: "TECIDO", value: "PIQUET PIMA" }, { key: "COMPOSIÇÃO", value: "92% ALGODÃO 8% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+    specs: [
+      { key: "GÊNERO", value: "MASCULINO" },
+      { key: "TECIDO", value: "PIQUET PIMA" },
+      { key: "COMPOSIÇÃO", value: "95% ALGODÃO PIMA 5% ELASTANO EXTRA" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "Polo premium confeccionada com tecido piquet de algodão Pima peruano e elastano, oferecendo toque extra macio, elasticidade ideal e caimento impecável. Uma peça básica essencial, produzida com a matéria-prima mais nobre do mundo: o algodão de fibra longa, altamente durável e resistente.\n\nSeu visual clean e acabamento refinado fazem da polo a base ideal para qualquer coleção de marca, valorizando o produto final com sofisticação e conforto.",
+      composition: "95% algodão Pima, 5% elastano extra",
+      highlights: [
+        "Tecido piquet com toque macio e textura clássica",
+        "Fibra longa que proporciona resistência, durabilidade e brilho natural",
+        "Leve elasticidade que garante liberdade de movimento",
+        "Modelagem com caimento perfeito que se adapta ao corpo",
+        "Estrutura premium ideal para coleções sofisticadas e personalizações de alto padrão"
+      ],
+      usability: [
+        "Ideal para visuais casuais elegantes, ambientes profissionais e eventos informais",
+        "Combina com jeans, sarja e alfaiataria",
+        "Pode ser utilizada como uniforme premium com identidade de marca"
+      ]
+    }
   },
   {
-    id: 2, title: "CAMISA POLO MASCULINA", fabric: "Cotton Pima com elastano",
+    id: 2,
+    title: "CAMISA POLO MASCULINA",
+    fabric: "Cotton Pima com elastano",
     image: img("polo-2.png"),
+    price: 99.90,
     gallery: [
       { src: img("polo-2.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("polo-2.png"), label: "COLARINHO", objectPosition: "center top" },
-      { src: img("polo-2.png"), label: "BORDADO", objectPosition: "30% 35%" },
-      { src: img("polo-2.png"), label: "TECIDO", objectPosition: "center 60%" },
+      { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-2-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
-    specs: [{ key: "GÊNERO", value: "MASCULINO" }, { key: "TECIDO", value: "COTTON PIMA" }, { key: "COMPOSIÇÃO", value: "95% ALGODÃO 5% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+    specs: [
+      { key: "GÊNERO", value: "MASCULINO" },
+      { key: "TECIDO", value: "COTTON PIMA" },
+      { key: "COMPOSIÇÃO", value: "92,5% ALGODÃO PIMA 7,5% ELASTANO" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "A Polo Cotton Pima com Elastano Lisa combina o toque nobre do algodão Pima com a flexibilidade do elastano, resultando em uma peça premium que une conforto absoluto, caimento perfeito e durabilidade superior.\n\nSeu design minimalista e acabamento refinado tornam esta polo indispensável para quem valoriza sofisticação em cada detalhe.",
+      composition: "92,5% algodão Pima, 7,5% elastano",
+      highlights: [
+        "Tecido nobre de algodão Pima com extrema suavidade e resistência",
+        "Elastano para maior conforto e liberdade de movimento",
+        "Gola estruturada com fechamento clássico em botões",
+        "Modelagem slim fit",
+        "Toque macio, respirável e altamente durável"
+      ],
+      usability: [
+        "Ideal para ambientes casuais elegantes, trabalho, jantares e viagens",
+        "Combina com chino, jeans escuro e bermuda de sarja",
+        "Pode ser usada sozinha ou com blazer leve",
+        "Visual sofisticado, moderno e versátil"
+      ]
+    }
   },
   {
-    id: 3, title: "CAMISA POLO MASCULINA", fabric: "Piquet Egípcio premium",
+    id: 3,
+    title: "CAMISA POLO MASCULINA",
+    fabric: "Piquet Egípcio premium",
     image: img("polo-3.png"),
+    price: 89.90,
     gallery: [
       { src: img("polo-3.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("polo-3.png"), label: "COLARINHO", objectPosition: "center top" },
-      { src: img("polo-3.png"), label: "BORDADO", objectPosition: "30% 35%" },
-      { src: img("polo-3.png"), label: "TECIDO", objectPosition: "center 60%" },
+      { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-3-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
-    specs: [{ key: "GÊNERO", value: "MASCULINO" }, { key: "TECIDO", value: "PIQUET EGÍPCIO" }, { key: "COMPOSIÇÃO", value: "100% ALGODÃO EGÍPCIO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+    specs: [
+      { key: "GÊNERO", value: "MASCULINO" },
+      { key: "TECIDO", value: "PIQUET EGÍPCIO" },
+      { key: "COMPOSIÇÃO", value: "100% ALGODÃO EGÍPCIO" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "A Polo Piquet Egípcio Premium é uma peça essencial para marcas que buscam elevar o padrão da coleção com qualidade real e acabamento refinado.\n\nConfeccionada em 100% algodão egípcio, oferece toque macio, respirabilidade natural e durabilidade superior. O piquet premium garante estrutura, conforto térmico e uma estética clássica que nunca sai de moda.",
+      composition: "100% algodão egípcio",
+      highlights: [
+        "Malha piquet premium em algodão egípcio",
+        "Fibras longas com toque macio e maior resistência",
+        "Excelente respirabilidade",
+        "Estrutura encorpada com caimento equilibrado",
+        "Conforto térmico para diferentes climas",
+        "Acabamento refinado e alta durabilidade",
+        "Baixo índice de deformação"
+      ],
+      usability: [
+        "Ideal para uso casual elegante, trabalho, eventos e uniformização premium",
+        "Combina com jeans, chino, sarja e alfaiataria leve",
+        "Excelente para ambientes corporativos modernos e públicos exigentes"
+      ]
+    }
   },
   {
-    id: 4, title: "CAMISA POLO FEMININA", fabric: "Piquet Pima com elastano",
+    id: 4,
+    title: "CAMISA POLO FEMININA",
+    fabric: "Piquet Pima com elastano",
     image: img("polo-4.png"),
+    price: 99.90,
     gallery: [
       { src: img("polo-4.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("polo-4.png"), label: "COLARINHO", objectPosition: "center top" },
-      { src: img("polo-4.png"), label: "BORDADO", objectPosition: "30% 35%" },
-      { src: img("polo-4.png"), label: "TECIDO", objectPosition: "center 60%" },
+      { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-4-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
-    specs: [{ key: "GÊNERO", value: "FEMININO" }, { key: "TECIDO", value: "PIQUET PIMA" }, { key: "COMPOSIÇÃO", value: "92% ALGODÃO 8% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+    specs: [
+      { key: "GÊNERO", value: "FEMININO" },
+      { key: "TECIDO", value: "PIQUET PIMA" },
+      { key: "COMPOSIÇÃO", value: "95% ALGODÃO PIMA 5% ELASTANO EXTRA" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "Polo premium confeccionada com tecido piquet de algodão Pima peruano e elastano, oferecendo toque extra macio, elasticidade ideal e caimento impecável. Uma peça básica essencial, produzida com a matéria-prima mais nobre do mundo: o algodão de fibra longa, altamente durável e resistente.\n\nSeu visual clean e acabamento refinado fazem da polo a base ideal para qualquer coleção de marca, valorizando o produto final com sofisticação e conforto.",
+      composition: "95% algodão Pima, 5% elastano extra",
+      highlights: [
+        "Tecido piquet com toque macio e textura clássica",
+        "Fibra longa que proporciona resistência, durabilidade e brilho natural",
+        "Leve elasticidade que garante liberdade de movimento",
+        "Modelagem com caimento perfeito que se adapta ao corpo",
+        "Estrutura premium ideal para coleções sofisticadas e personalizações de alto padrão"
+      ],
+      usability: [
+        "Ideal para visuais casuais elegantes, ambientes profissionais e eventos informais",
+        "Combina com jeans, sarja e alfaiataria",
+        "Pode ser utilizada como uniforme premium com identidade de marca"
+      ]
+    }
   },
   {
-    id: 5, title: "CAMISA POLO FEMININA", fabric: "Cotton Pima com elastano",
+    id: 5,
+    title: "CAMISA POLO FEMININA",
+    fabric: "Cotton Pima com elastano",
     image: img("polo-5.png"),
+    price: 99.90,
     gallery: [
       { src: img("polo-5.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("polo-5.png"), label: "COLARINHO", objectPosition: "center top" },
-      { src: img("polo-5.png"), label: "BORDADO", objectPosition: "30% 35%" },
-      { src: img("polo-5.png"), label: "TECIDO", objectPosition: "center 60%" },
+      { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-5-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
-    specs: [{ key: "GÊNERO", value: "FEMININO" }, { key: "TECIDO", value: "COTTON PIMA" }, { key: "COMPOSIÇÃO", value: "95% ALGODÃO 5% ELASTANO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+    specs: [
+      { key: "GÊNERO", value: "FEMININO" },
+      { key: "TECIDO", value: "COTTON PIMA" },
+      { key: "COMPOSIÇÃO", value: "92,5% ALGODÃO PIMA 7,5% ELASTANO" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "A Polo Cotton Pima com Elastano Lisa combina o toque nobre do algodão Pima com a flexibilidade do elastano, resultando em uma peça premium que une conforto absoluto, caimento perfeito e durabilidade superior.\n\nSeu design minimalista e acabamento refinado tornam esta polo indispensável para quem valoriza sofisticação em cada detalhe.",
+      composition: "92,5% algodão Pima, 7,5% elastano",
+      highlights: [
+        "Tecido nobre de algodão Pima com extrema suavidade e resistência",
+        "Elastano para maior conforto e liberdade de movimento",
+        "Gola estruturada com fechamento clássico em botões",
+        "Modelagem slim fit",
+        "Toque macio, respirável and altamente durável"
+      ],
+      usability: [
+        "Ideal para ambientes casuais elegantes, trabalho, jantares e viagens",
+        "Combina com chino, jeans escuro e bermuda de sarja",
+        "Pode ser usada sozinha ou com blazer leve",
+        "Visual sofisticado, moderno e versátil"
+      ]
+    }
   },
   {
-    id: 6, title: "CAMISA POLO FEMININA", fabric: "Piquet Egípcio premium",
+    id: 6,
+    title: "CAMISA POLO FEMININA",
+    fabric: "Piquet Egípcio premium",
     image: img("polo-6.png"),
+    price: 89.90,
     gallery: [
       { src: img("polo-6.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("polo-6.png"), label: "COLARINHO", objectPosition: "center top" },
-      { src: img("polo-6.png"), label: "BORDADO", objectPosition: "30% 35%" },
-      { src: img("polo-6.png"), label: "TECIDO", objectPosition: "center 60%" },
+      { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-6-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
-    specs: [{ key: "GÊNERO", value: "FEMININO" }, { key: "TECIDO", value: "PIQUET EGÍPCIO" }, { key: "COMPOSIÇÃO", value: "100% ALGODÃO EGÍPCIO" }, { key: "COR", value: "PRETA" }, { key: "BORDADO", value: "3.5CM" }],
+    specs: [
+      { key: "GÊNERO", value: "FEMININO" },
+      { key: "TECIDO", value: "PIQUET EGÍPCIO" },
+      { key: "COMPOSIÇÃO", value: "100% ALGODÃO EGÍPCIO" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "A Polo Piquet Egípcio Premium é uma peça essencial para marcas que buscam elevar o padrão da coleção com qualidade real e acabamento refinado.\n\nConfeccionada em 100% algodão egípcio, oferece toque macio, respirabilidade natural e durabilidade superior. O piquet premium garante estrutura, conforto térmico e uma estética clássica que nunca sai de moda.",
+      composition: "100% algodão egípcio",
+      highlights: [
+        "Malha piquet premium em algodão egípcio",
+        "Fibras longas com toque macio e maior resistência",
+        "Excelente respirabilidade",
+        "Estrutura encorpada com caimento equilibrado",
+        "Conforto térmico para diferentes climas",
+        "Acabamento refinado e alta durabilidade",
+        "Baixo índice de deformação"
+      ],
+      usability: [
+        "Ideal para uso casual elegante, trabalho, eventos e uniformização premium",
+        "Combina com jeans, chino, sarja e alfaiataria leve",
+        "Excelente para ambientes corporativos modernos e públicos exigentes"
+      ]
+    }
   },
 ];
 
@@ -95,7 +260,8 @@ const CSS = `
   * { box-sizing:border-box; border-radius:0 !important; }
   .font-anton { font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:-0.02em; }
   .font-barlow { font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; }
-  .filter-gs { filter:grayscale(100%) contrast(108%) brightness(95%); }
+  .filter-gs { filter:grayscale(100%) contrast(108%) brightness(95%); transition:filter 0.4s ease; }
+  .filter-gs:hover, .card-wrap:hover .filter-gs, .group:hover .filter-gs { filter:grayscale(0%) contrast(100%) brightness(100%); }
   @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
   .ticker { animation:marquee 20s linear infinite; will-change:transform; }
   .ticker-slow { animation:marquee 28s linear infinite; will-change:transform; }
@@ -243,7 +409,41 @@ function ProductPage({
                 LOPES IMOBILIÁRIA — COLEÇÃO CORPORATIVA
               </p>
               <h1 className="font-anton text-[clamp(32px,4vw,56px)] leading-[0.9] mb-3">{product.title}</h1>
-              <p className="font-barlow font-medium text-[14px] tracking-[0.08em] text-[#5A5A5A]">{product.fabric}</p>
+              <div className="flex justify-between items-baseline mb-1">
+                <p className="font-barlow font-medium text-[14px] tracking-[0.08em] text-[#5A5A5A]">{product.fabric}</p>
+                <p className="font-anton text-2xl text-[#0A0A0A]">R$ {product.price.toFixed(2).replace('.', ',')}</p>
+              </div>
+            </div>
+
+            {/* Description Block */}
+            <div className="border-b-2 border-[#0A0A0A] p-6 md:p-10 font-barlow">
+              <p className="font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] mb-4">SOBRE O PRODUTO</p>
+              <p className="text-[14px] leading-relaxed text-[#0A0A0A] mb-5 tracking-[0.02em] normal-case font-medium whitespace-pre-line">
+                {product.description.summary}
+              </p>
+
+              <div className="mb-5">
+                <span className="font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] block mb-1">COMPOSIÇÃO</span>
+                <span className="text-[14px] font-bold text-[#0A0A0A] tracking-wide">{product.description.composition}</span>
+              </div>
+
+              <div className="mb-5">
+                <span className="font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] block mb-2">DIFERENCIAIS TÉCNICOS</span>
+                <ul className="list-disc list-inside text-[13px] text-[#0A0A0A] space-y-1 normal-case leading-relaxed font-medium">
+                  {product.description.highlights.map((h, i) => (
+                    <li key={i}>{h}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <span className="font-bold text-[11px] tracking-[0.15em] text-[#5A5A5A] block mb-2">USABILIDADE E COMBINAÇÕES</span>
+                <ul className="list-disc list-inside text-[13px] text-[#0A0A0A] space-y-1 normal-case leading-relaxed font-medium">
+                  {product.description.usability.map((u, i) => (
+                    <li key={i}>{u}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Specs table */}
@@ -309,7 +509,7 @@ function ProductPage({
               >
                 <div
                   className="w-full aspect-[2/3] overflow-hidden border-2 border-[#D0CFC9] mb-2 bg-[#F0EFED] group-hover:border-[#0A0A0A] transition-colors"
-                  onClick={() => { setActiveIdx(0); onClose(); setTimeout(() => {}, 0); }}
+                  onClick={() => { setActiveIdx(0); onClose(); setTimeout(() => { }, 0); }}
                 >
                   <img
                     src={p.image}
@@ -381,6 +581,8 @@ export function LopesApp() {
         quantidade: quantity,
         cor: "Preta",
         detalhe: "Bordado 3.5cm",
+        preco_unitario: selectedProduct!.price,
+        valor_total: selectedProduct!.price * quantity
       }],
     };
 
@@ -453,13 +655,13 @@ export function LopesApp() {
             <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8 bg-red-600">
               <span className="text-[80px] font-bold leading-none text-white">✳</span>
             </div>
-            <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#C8C5BE]">
-              <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-[#0A0A0A] mb-8 max-w-[280px]">
-                LOPES PROPOSES HIGH-PERFORMANCE PIECES DEVELOPED WITH PREMIUM MATERIALS FOR OUR CORPORATE ELITE.
+            <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#141414]">
+              <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[280px]">
+                Vista o padrão Lopes. Escolha suas peças e eleve o seu visual!
               </p>
               <a
                 href="#colecao"
-                className="bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150"
+                className="bg-white text-[#0A0A0A] border-2 border-white py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full hover:bg-transparent hover:text-white transition-colors duration-150"
               >
                 <span>VER COLEÇÃO</span>
                 <span>▶</span>
@@ -470,7 +672,7 @@ export function LopesApp() {
           <div className="col-span-1 md:col-span-2 flex flex-col bg-white">
             <div className="px-4 py-2 md:px-8 md:py-4 border-b-2 border-[#0A0A0A] overflow-hidden whitespace-nowrap">
               <h1 className="font-anton text-[clamp(80px,12vw,160px)] leading-[0.88] text-[#0A0A0A] m-0 p-0 translate-y-2">
-                ALWAYS LOPES
+                SEMPRE LOPES
               </h1>
             </div>
             <div className="flex-1 bg-[#F0EFED] w-full relative min-h-[40vh] md:min-h-0 overflow-hidden">
@@ -486,8 +688,8 @@ export function LopesApp() {
         {/* TICKER 1 */}
         <section className="w-full bg-[#0A0A0A] text-white overflow-hidden flex items-center py-3 border-b-2 border-[#0A0A0A]">
           <div className="flex whitespace-nowrap ticker font-barlow text-[16px] font-bold tracking-[0.1em]">
-            {[0,1,2,3].map(i => (
-              <span key={i} className="mx-4">IN ORDER TO KEEP THE BRAND STANDARD ✳ LOPES UNIFORMES ✳ PERFORMANCE PREMIUM ✳ CORPORATE ELITE ✳</span>
+            {[0, 1, 2, 3].map(i => (
+              <span key={i} className="mx-4">QUALIDADE PARA QUEM MERERECE ✳ LOPES UNIFORMES ✳ ALTO PADRÃO ✳ A MAIOR DA AMÉRICA LATINA ✳</span>
             ))}
           </div>
         </section>
@@ -496,9 +698,9 @@ export function LopesApp() {
         <div className="relative w-full h-0 z-10 pointer-events-none">
           <div className="absolute top-[-30px] left-[-5%] w-[110%] bg-[#0A0A0A] text-white overflow-hidden flex items-center py-2 shadow-2xl pointer-events-auto" style={{ transform: "rotate(-3deg)" }}>
             <div className="flex whitespace-nowrap ticker-slow font-barlow text-[14px] font-bold tracking-[0.1em] opacity-90">
-              {[0,1,2,3].map(i => (
+              {[0, 1, 2, 3].map(i => (
                 <span key={i} className="mx-4" style={{ WebkitTextStroke: "1px white", color: "transparent" }}>
-                  SPECIAL ARCHIVE ARCHITECTS ✳ DESIGNED FOR SUCCESS ✳ LOPES IMOBILIÁRIA ✳
+                  ESPECIALMENTE PARA VOCÊ ✳ VISTA O SUCESSO ✳ LOPES IMOBILIÁRIA ✳
                 </span>
               ))}
             </div>
@@ -533,7 +735,10 @@ export function LopesApp() {
 
                 <div className="flex flex-col flex-1 font-barlow text-[#0A0A0A]">
                   <h3 className="font-bold text-[16px] tracking-[0.06em] leading-tight mb-1">{product.title}</h3>
-                  <p className="font-medium text-[11px] tracking-[0.10em] text-[#5A5A5A] mb-6">{product.fabric}</p>
+                  <div className="flex justify-between items-baseline mb-6">
+                    <p className="font-medium text-[11px] tracking-[0.10em] text-[#5A5A5A]">{product.fabric}</p>
+                    <p className="font-anton text-[16px] text-[#0A0A0A]">R$ {product.price.toFixed(2).replace('.', ',')}</p>
+                  </div>
                   <div className="mt-auto flex items-center justify-between">
                     <button
                       onClick={() => openDrawer(product)}
@@ -563,8 +768,8 @@ export function LopesApp() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
           <div className="absolute bottom-0 left-0 p-6 md:p-12 w-full">
-            <h2 className="font-anton text-[clamp(40px,6vw,80px)] leading-[0.85] text-white max-w-[800px] mb-4 drop-shadow-lg">
-              REAL PERFORMANCE FOR A CORPORATE MASTERPIECE
+            <h2 className="font-anton text-[clamp(40px,6vw,80px)] leading-[1.05] text-white max-w-[800px] mb-4 drop-shadow-lg">
+              Vista a camisa de quem lidera o mercado
             </h2>
             <p className="font-barlow font-medium text-[12px] tracking-[0.15em] text-[#C8C5BE]">
               BORDADO 3.5CM — COR PRETA — EXCLUSIVO LOPES
@@ -576,7 +781,7 @@ export function LopesApp() {
         <footer className="bg-[#0A0A0A] text-white pt-20 pb-8 px-4 md:px-8">
           <div className="w-full flex justify-center mb-16 overflow-hidden">
             <h2 className="font-anton text-[clamp(48px,8vw,100px)] leading-none text-center w-full">
-              OFFICINE LOPES
+              OFICINA LOPES
             </h2>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center border-t border-[#333333] pt-6 font-barlow text-[10px] tracking-[0.1em]">
@@ -585,6 +790,7 @@ export function LopesApp() {
               <span className="hover:text-white transition-colors cursor-default">TERMOS</span>
               <span className="hover:text-white transition-colors cursor-default">CONTATO INTERNO</span>
             </div>
+            <div className="text-[#666666]">DESENVOLVIDO POR LUIZ VILARINHO</div>
             <div className="text-[#666666]">© 2026 LOPES IMOBILIÁRIA. TODOS OS DIREITOS RESERVADOS.</div>
           </div>
         </footer>
@@ -631,10 +837,18 @@ export function LopesApp() {
                       </div>
                       <div className="flex justify-between mt-4 pt-4 border-t border-[#E5E5E5]">
                         <span className="text-[#5A5A5A] max-w-[120px]">
-                          {selectedProduct?.title}<br/>
+                          {selectedProduct?.title}<br />
                           <span className="text-[10px]">{selectedProduct?.fabric}</span>
                         </span>
                         <span className="font-bold">{quantity}x</span>
+                      </div>
+                      <div className="flex justify-between mt-2 font-barlow text-[13px] tracking-wide">
+                        <span className="text-[#5A5A5A]">PREÇO UNITÁRIO</span>
+                        <span className="font-bold">R$ {selectedProduct?.price.toFixed(2).replace('.', ',')}</span>
+                      </div>
+                      <div className="flex justify-between mt-2 pt-2 border-t border-dashed border-[#C8C5BE] font-anton text-[16px] text-[#0A0A0A]">
+                        <span>VALOR TOTAL</span>
+                        <span>R$ {(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}</span>
                       </div>
                     </div>
                   </div>
@@ -689,9 +903,8 @@ export function LopesApp() {
                         <button
                           key={size}
                           onClick={() => { setSelectedSize(size); setFormError(""); }}
-                          className={`flex-1 border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[13px] tracking-[0.06em] transition-colors duration-150 ${
-                            selectedSize === size ? "bg-[#0A0A0A] text-white" : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
-                          }`}
+                          className={`flex-1 border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[13px] tracking-[0.06em] transition-colors duration-150 ${selectedSize === size ? "bg-[#0A0A0A] text-white" : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
+                            }`}
                         >
                           {size}
                         </button>
@@ -717,9 +930,8 @@ export function LopesApp() {
                         <button
                           key={u}
                           onClick={() => { setUnidade(u); setFormError(""); }}
-                          className={`border-2 border-[#0A0A0A] py-3 px-2 font-barlow font-bold text-[11px] tracking-[0.06em] leading-tight transition-colors duration-150 ${
-                            unidade === u ? "bg-[#0A0A0A] text-white" : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
-                          } ${u === "GESTÃO PATRIMONIAL" ? "col-span-2" : ""}`}
+                          className={`border-2 border-[#0A0A0A] py-3 px-2 font-barlow font-bold text-[11px] tracking-[0.06em] leading-tight transition-colors duration-150 ${unidade === u ? "bg-[#0A0A0A] text-white" : "bg-white text-[#0A0A0A] hover:bg-[#F0EFED]"
+                            } ${u === "GESTÃO PATRIMONIAL" ? "col-span-2" : ""}`}
                         >
                           {u}
                         </button>

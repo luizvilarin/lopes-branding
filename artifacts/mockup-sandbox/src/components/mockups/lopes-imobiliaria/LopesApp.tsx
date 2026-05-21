@@ -23,36 +23,42 @@ export function LopesApp() {
       title: "CAMISA POLO MASCULINA",
       fabric: "Piquet Pima com elastano",
       image: "/__mockup/images/polo-1.png",
+      price: 99.90,
     },
     {
       id: 2,
       title: "CAMISA POLO MASCULINA",
       fabric: "Cotton Pima com elastano",
       image: "/__mockup/images/polo-2.png",
+      price: 99.90,
     },
     {
       id: 3,
       title: "CAMISA POLO MASCULINA",
       fabric: "Piquet Egípcio premium",
       image: "/__mockup/images/polo-3.png",
+      price: 89.90,
     },
     {
       id: 4,
       title: "CAMISA POLO FEMININA",
       fabric: "Piquet Pima com elastano",
       image: "/__mockup/images/polo-4.png",
+      price: 99.90,
     },
     {
       id: 5,
       title: "CAMISA POLO FEMININA",
       fabric: "Cotton Pima com elastano",
       image: "/__mockup/images/polo-5.png",
+      price: 99.90,
     },
     {
       id: 6,
       title: "CAMISA POLO FEMININA",
       fabric: "Piquet Egípcio premium",
       image: "/__mockup/images/polo-6.png",
+      price: 89.90,
     },
   ];
 
@@ -99,7 +105,9 @@ export function LopesApp() {
           tamanho: selectedSize,
           quantidade: quantity,
           cor: "Preta",
-          detalhe: "Bordado 3.5cm"
+          detalhe: "Bordado 3.5cm",
+          preco_unitario: selectedProduct.price,
+          valor_total: selectedProduct.price * quantity
         }
       ]
     };
@@ -197,6 +205,11 @@ export function LopesApp() {
 
     .filter-grayscale {
       filter: grayscale(100%) contrast(108%) brightness(95%);
+      transition: filter 0.4s ease;
+    }
+    .filter-grayscale:hover,
+    .card-container:hover .filter-grayscale {
+      filter: grayscale(0%) contrast(100%) brightness(100%);
     }
 
     @keyframes marquee {
@@ -285,11 +298,11 @@ export function LopesApp() {
             <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8 bg-red-600">
               <span className="text-[80px] font-bold leading-none text-white">✳</span>
             </div>
-            <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#0A0A0A]">
+            <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#222222]">
               <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[280px]">
                 LOPES PROPOSES HIGH-PERFORMANCE PIECES DEVELOPED WITH PREMIUM MATERIALS FOR OUR CORPORATE ELITE.
               </p>
-              <button className="bg-white text-[#0A0A0A] border-2 border-white py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full group hover:bg-[#0A0A0A] hover:text-white transition-colors duration-150">
+              <button className="bg-white text-[#0A0A0A] border-2 border-white py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full group hover:bg-transparent hover:text-white transition-colors duration-150">
                 <span>VER COLEÇÃO</span>
                 <span>▶</span>
               </button>
@@ -354,7 +367,10 @@ export function LopesApp() {
                 </div>
                 <div className="flex flex-col flex-1 font-barlow text-[#0A0A0A]">
                   <h3 className="font-bold text-[16px] tracking-[0.06em] leading-tight mb-1">{product.title}</h3>
-                  <p className="font-medium text-[11px] tracking-[0.10em] text-[#5A5A5A] mb-6">{product.fabric}</p>
+                  <div className="flex justify-between items-baseline mb-6">
+                    <p className="font-medium text-[11px] tracking-[0.10em] text-[#5A5A5A]">{product.fabric}</p>
+                    <p className="font-anton text-[16px] text-[#0A0A0A]">R$ {product.price.toFixed(2).replace('.', ',')}</p>
+                  </div>
                   
                   <div className="mt-auto">
                     <button 
@@ -380,7 +396,7 @@ export function LopesApp() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
           
           <div className="absolute bottom-0 left-0 p-6 md:p-12 w-full">
-            <h2 className="font-anton text-[clamp(40px,6vw,80px)] leading-[0.85] tracking-[-0.02em] text-white max-w-[800px] mb-4 drop-shadow-lg">
+            <h2 className="font-anton text-[clamp(40px,6vw,80px)] leading-[1.05] tracking-[-0.02em] text-white max-w-[800px] mb-4 drop-shadow-lg">
               REAL PERFORMANCE FOR A CORPORATE MASTERPIECE
             </h2>
             <p className="font-barlow font-medium text-[12px] tracking-[0.15em] text-[#C8C5BE]">
@@ -457,6 +473,14 @@ export function LopesApp() {
                         <span className="text-[#5A5A5A] max-w-[120px]">{selectedProduct?.title}<br/><span className="text-[10px]">{selectedProduct?.fabric}</span></span>
                         <span className="font-bold">{quantity}x</span>
                       </div>
+                      <div className="flex justify-between mt-2 font-barlow text-[13px] tracking-wide">
+                        <span className="text-[#5A5A5A]">PREÇO UNITÁRIO</span>
+                        <span className="font-bold">R$ {selectedProduct?.price.toFixed(2).replace('.', ',')}</span>
+                      </div>
+                      <div className="flex justify-between mt-2 pt-2 border-t border-dashed border-[#C8C5BE] font-anton text-[16px] text-[#0A0A0A]">
+                        <span>VALOR TOTAL</span>
+                        <span>R$ {(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}</span>
+                      </div>
                     </div>
                   </div>
                   
@@ -482,12 +506,15 @@ export function LopesApp() {
                 <div className="flex flex-col h-full">
                   {/* Selected Product */}
                   <div className="flex gap-4 mb-8 bg-white border-2 border-[#0A0A0A] p-2">
-                    <div className="w-20 aspect-[2/3] bg-gray-100 border border-[#D0CFC9]">
+                    <div className="w-20 aspect-[2/3] bg-gray-100 border border-[#D0CFC9] overflow-hidden flex-shrink-0">
                       <img src={selectedProduct?.image} alt="Produto" className="w-full h-full object-cover filter-grayscale" />
                     </div>
-                    <div className="flex flex-col justify-center font-barlow pt-2">
+                    <div className="flex flex-col justify-center font-barlow pt-2 flex-1">
                       <p className="font-bold text-[16px] leading-none mb-1">{selectedProduct?.title}</p>
-                      <p className="font-medium text-[12px] text-[#5A5A5A] tracking-[0.05em]">{selectedProduct?.fabric}</p>
+                      <div className="flex justify-between items-baseline mt-1">
+                        <p className="font-medium text-[12px] text-[#5A5A5A] tracking-[0.05em]">{selectedProduct?.fabric}</p>
+                        <p className="font-anton text-[15px] text-[#0A0A0A]">R$ {selectedProduct?.price.toFixed(2).replace('.', ',')}</p>
+                      </div>
                     </div>
                   </div>
 
