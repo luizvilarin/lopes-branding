@@ -653,26 +653,26 @@ export function LopesApp() {
         </div>
       </nav>
 
-      <main className="max-w-[1280px] mx-auto border-x-2 border-[#0A0A0A] w-full bg-white overflow-hidden">
+      <main className="w-full bg-white overflow-hidden">
 
         {/* HERO */}
-        <section className="grid grid-cols-1 md:grid-cols-3 border-b-2 border-[#0A0A0A]">
-          <div className="col-span-1 border-b-2 md:border-b-0 md:border-r-2 border-[#0A0A0A] flex flex-col min-h-[60vh] md:min-h-[80vh]">
+        <section className="grid grid-cols-1 lg:grid-cols-3 border-b-2 border-[#0A0A0A] w-full">
+          <div className="col-span-1 border-b-2 lg:border-b-0 lg:border-r-2 border-[#0A0A0A] flex flex-col min-h-[60vh] lg:min-h-[85vh]">
             <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8 bg-[#E30613]">
               <img
                 src={img("lopes-heart.png")}
                 alt="Lopes Logo"
-                className="w-20 h-20 object-contain"
+                className="w-20 h-20 md:w-28 md:h-28 object-contain"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </div>
             <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#141414]">
-              <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[280px]">
+              <p className="font-barlow text-[12px] md:text-[15px] lg:text-[16px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[320px]">
                 Vista o padrão Lopes. Escolha suas peças e eleve o seu visual!
               </p>
               <a
                 href="#colecao"
-                className="bg-white text-[#0A0A0A] border-2 border-white py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full hover:bg-transparent hover:text-white transition-colors duration-150"
+                className="bg-white text-[#0A0A0A] border-2 border-white py-3.5 px-6 font-barlow font-bold text-[14px] md:text-[16px] tracking-[0.12em] flex items-center justify-between w-full hover:bg-transparent hover:text-white transition-colors duration-150"
               >
                 <span>VER COLEÇÃO</span>
                 <span>▶</span>
@@ -680,13 +680,13 @@ export function LopesApp() {
             </div>
           </div>
 
-          <div className="col-span-1 md:col-span-2 flex flex-col bg-white">
+          <div className="col-span-1 lg:col-span-2 flex flex-col bg-white">
             <div className="px-4 py-2 md:px-8 md:py-4 border-b-2 border-[#0A0A0A] overflow-hidden whitespace-nowrap">
-              <h1 className="font-anton text-[clamp(80px,12vw,160px)] leading-[0.88] text-[#0A0A0A] m-0 p-0 translate-y-2">
+              <h1 className="font-anton text-[clamp(70px,10vw,200px)] leading-[0.88] text-[#0A0A0A] m-0 p-0 translate-y-2">
                 SEMPRE LOPES
               </h1>
             </div>
-            <div className="flex-1 bg-[#F0EFED] w-full relative min-h-[40vh] md:min-h-0 overflow-hidden">
+            <div className="flex-1 bg-[#F0EFED] w-full relative min-h-[40vh] lg:min-h-0 overflow-hidden">
               <img
                 src={img("polo-1.png")}
                 alt="Camisa Polo Lopes"
@@ -719,13 +719,13 @@ export function LopesApp() {
         </div>
 
         {/* CATALOG */}
-        <section id="colecao" className="bg-white pt-16 md:pt-24 pb-20">
-          <div className="border-t-2 border-[#0A0A0A] flex justify-between items-center py-4 px-6 md:px-10">
-            <h2 className="font-anton text-4xl md:text-5xl">COLEÇÃO CORPORATIVA</h2>
-            <span className="font-barlow font-bold text-[12px] tracking-[0.1em] text-[#C8C5BE]">6 MODELOS</span>
+        <section id="colecao" className="bg-white pt-16 md:pt-24 pb-20 w-full">
+          <div className="border-t-2 border-[#0A0A0A] flex justify-between items-center py-4 px-6 md:px-10 w-full">
+            <h2 className="font-anton text-4xl md:text-5xl lg:text-6xl">COLEÇÃO CORPORATIVA</h2>
+            <span className="font-barlow font-bold text-[12px] md:text-[14px] tracking-[0.1em] text-[#C8C5BE]">6 MODELOS</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 px-6 md:px-10 mt-6 border-t border-[#D0CFC9]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-0 px-4 md:px-8 mt-6 border-t border-[#D0CFC9] w-full">
             {PRODUCTS.map((product) => (
               <div key={product.id} className="card-wrap flex flex-col border-b border-r border-l border-[#D0CFC9] p-4 bg-white hover:bg-[#F0EFED] transition-colors duration-300">
                 {/* Clickable image → product page */}
@@ -745,7 +745,7 @@ export function LopesApp() {
                 </button>
 
                 <div className="flex flex-col flex-1 font-barlow text-[#0A0A0A]">
-                  <h3 className="font-bold text-[16px] tracking-[0.06em] leading-tight mb-1">{product.title}</h3>
+                  <h3 className="font-bold text-[15px] lg:text-[16px] tracking-[0.06em] leading-tight mb-1">{product.title}</h3>
                   <div className="flex justify-between items-baseline mb-6">
                     <p className="font-medium text-[11px] tracking-[0.10em] text-[#5A5A5A]">{product.fabric}</p>
                     <p className="font-anton text-[16px] text-[#0A0A0A]">R$ {product.price.toFixed(2).replace('.', ',')}</p>
@@ -771,18 +771,18 @@ export function LopesApp() {
         </section>
 
         {/* EDITORIAL BREAK */}
-        <section className="relative w-full aspect-square md:aspect-[16/9] bg-[#0A0A0A] border-y-2 border-[#0A0A0A] overflow-hidden">
+        <section className="relative w-full aspect-square md:aspect-[21/9] lg:aspect-[28/9] min-h-[400px] bg-[#0A0A0A] border-y-2 border-[#0A0A0A] overflow-hidden">
           <img
             src={img("editorial-hero.png")}
             alt="Editorial"
             className="w-full h-full object-cover filter-gs opacity-80"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 p-6 md:p-12 w-full">
-            <h2 className="font-anton text-[clamp(40px,6vw,80px)] leading-[1.05] text-white max-w-[800px] mb-4 drop-shadow-lg">
+          <div className="absolute bottom-0 left-0 p-6 md:p-12 lg:p-16 w-full">
+            <h2 className="font-anton text-[clamp(40px,5vw,90px)] leading-[1.05] text-white max-w-[1000px] mb-4 drop-shadow-lg">
               Vista a camisa de quem lidera o mercado
             </h2>
-            <p className="font-barlow font-medium text-[12px] tracking-[0.15em] text-[#C8C5BE]">
+            <p className="font-barlow font-medium text-[12px] md:text-[14px] tracking-[0.15em] text-[#C8C5BE]">
               BORDADO 3.5CM — COR PRETA — EXCLUSIVO LOPES
             </p>
           </div>

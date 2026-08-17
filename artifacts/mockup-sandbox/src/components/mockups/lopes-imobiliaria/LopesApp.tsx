@@ -291,25 +291,25 @@ export function LopesApp() {
         </div>
       </nav>
 
-      <main className="max-w-[1280px] mx-auto border-x-2 border-[#0A0A0A] w-full bg-white overflow-hidden">
+      <main className="w-full bg-white overflow-hidden">
         
         {/* 2. Hero Section */}
-        <section className="grid grid-cols-1 md:grid-cols-3 border-b-2 border-[#0A0A0A]">
+        <section className="grid grid-cols-1 lg:grid-cols-3 border-b-2 border-[#0A0A0A] w-full">
           {/* Left Panel */}
-          <div className="col-span-1 border-b-2 md:border-b-0 md:border-r-2 border-[#0A0A0A] bg-[#C8C5BE] noise-bg flex flex-col min-h-[60vh] md:min-h-[80vh]">
+          <div className="col-span-1 border-b-2 lg:border-b-0 lg:border-r-2 border-[#0A0A0A] bg-[#C8C5BE] noise-bg flex flex-col min-h-[60vh] lg:min-h-[85vh]">
             <div className="flex-1 flex items-center justify-center border-b-2 border-[#0A0A0A] p-8 bg-[#E30613]">
               <img
                 src="/__mockup/images/lopes-heart.png"
                 alt="Lopes Logo"
-                className="w-20 h-20 object-contain"
+                className="w-20 h-20 md:w-28 md:h-28 object-contain"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </div>
             <div className="flex-1 flex flex-col justify-end p-6 md:p-10 bg-[#222222]">
-              <p className="font-barlow text-[12px] md:text-[14px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[280px]">
+              <p className="font-barlow text-[12px] md:text-[15px] lg:text-[16px] leading-tight font-medium tracking-[0.08em] text-white mb-8 max-w-[320px]">
                 LOPES PROPOSES HIGH-PERFORMANCE PIECES DEVELOPED WITH PREMIUM MATERIALS FOR OUR CORPORATE ELITE.
               </p>
-              <button className="bg-white text-[#0A0A0A] border-2 border-white py-3 px-6 font-barlow font-bold text-[14px] tracking-[0.12em] flex items-center justify-between w-full group hover:bg-transparent hover:text-white transition-colors duration-150">
+              <button className="bg-white text-[#0A0A0A] border-2 border-white py-3.5 px-6 font-barlow font-bold text-[14px] md:text-[16px] tracking-[0.12em] flex items-center justify-between w-full group hover:bg-transparent hover:text-white transition-colors duration-150">
                 <span>VER COLEÇÃO</span>
                 <span>▶</span>
               </button>
@@ -317,13 +317,13 @@ export function LopesApp() {
           </div>
           
           {/* Right Panel */}
-          <div className="col-span-1 md:col-span-2 flex flex-col bg-white">
+          <div className="col-span-1 lg:col-span-2 flex flex-col bg-white">
             <div className="px-4 py-2 md:px-8 md:py-4 border-b-2 border-[#0A0A0A] overflow-hidden whitespace-nowrap">
-              <h1 className="font-anton text-[clamp(80px,12vw,160px)] leading-[0.88] tracking-[-0.02em] text-[#0A0A0A] m-0 p-0 transform translate-y-2">
+              <h1 className="font-anton text-[clamp(70px,10vw,200px)] leading-[0.88] tracking-[-0.02em] text-[#0A0A0A] m-0 p-0 transform translate-y-2">
                 ALWAYS LOPES
               </h1>
             </div>
-            <div className="flex-1 bg-[#F0EFED] w-full relative min-h-[40vh] md:min-h-0 overflow-hidden">
+            <div className="flex-1 bg-[#F0EFED] w-full relative min-h-[40vh] lg:min-h-0 overflow-hidden">
               <img 
                 src="/__mockup/images/polo-1.png" 
                 alt="Editorial Hero" 
@@ -356,13 +356,13 @@ export function LopesApp() {
         </div>
 
         {/* 5. Product Catalog */}
-        <section className="bg-white pt-16 md:pt-24 pb-20">
-          <div className="border-t-2 border-[#0A0A0A] flex justify-between items-center py-4 px-6 md:px-10">
-            <h2 className="font-anton text-4xl md:text-5xl tracking-[-0.02em]">COLEÇÃO CORPORATIVA</h2>
-            <a href="#" className="font-barlow font-bold text-[12px] tracking-[0.1em] hover:opacity-50 transition-opacity">VER TODOS ▶</a>
+        <section className="bg-white pt-16 md:pt-24 pb-20 w-full">
+          <div className="border-t-2 border-[#0A0A0A] flex justify-between items-center py-4 px-6 md:px-10 w-full">
+            <h2 className="font-anton text-4xl md:text-5xl lg:text-6xl tracking-[-0.02em]">COLEÇÃO CORPORATIVA</h2>
+            <a href="#" className="font-barlow font-bold text-[12px] md:text-[14px] tracking-[0.1em] hover:opacity-50 transition-opacity">VER TODOS ▶</a>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 px-6 md:px-10 mt-6 border-t border-[#D0CFC9]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-0 px-4 md:px-8 mt-6 border-t border-[#D0CFC9] w-full">
             {products.map((product, index) => (
               <div key={product.id} className="card-container flex flex-col border-b border-r border-l border-[#D0CFC9] p-4 bg-white hover:bg-[#F0EFED] transition-colors duration-300">
                 <div className="aspect-[2/3] w-full overflow-hidden bg-[#F0EFED] border border-[#D0CFC9] mb-4">
