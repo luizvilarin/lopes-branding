@@ -27,54 +27,20 @@ type Product = {
   description: ProductDescription;
 };
 
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "5562981000000";
+
 const PRODUCTS: Product[] = [
   {
     id: 1,
     title: "CAMISA POLO MASCULINA",
-    fabric: "Piquet Pima com elastano",
+    fabric: "Cotton Pima com elastano",
     image: img("polo-1.png"),
-    price: 99.90,
+    price: 105.00,
     gallery: [
       { src: img("polo-1.png"), label: "VISÃO GERAL", objectPosition: "center center" },
       { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
       { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
       { src: img("polo-1-detail.png"), label: "TECIDO", objectPosition: "center center" },
-    ],
-    specs: [
-      { key: "GÊNERO", value: "MASCULINO" },
-      { key: "TECIDO", value: "PIQUET PIMA" },
-      { key: "COMPOSIÇÃO", value: "95% ALGODÃO PIMA 5% ELASTANO EXTRA" },
-      { key: "COR", value: "PRETA" },
-      { key: "BORDADO", value: "3.5CM" }
-    ],
-    description: {
-      summary: "Polo premium confeccionada com tecido piquet de algodão Pima peruano e elastano, oferecendo toque extra macio, elasticidade ideal e caimento impecável. Uma peça básica essencial, produzida com a matéria-prima mais nobre do mundo: o algodão de fibra longa, altamente durável e resistente.\n\nSeu visual clean e acabamento refinado fazem da polo a base ideal para qualquer coleção de marca, valorizando o produto final com sofisticação e conforto.",
-      composition: "95% algodão Pima, 5% elastano extra",
-      highlights: [
-        "Tecido piquet com toque macio e textura clássica",
-        "Fibra longa que proporciona resistência, durabilidade e brilho natural",
-        "Leve elasticidade que garante liberdade de movimento",
-        "Modelagem com caimento perfeito que se adapta ao corpo",
-        "Estrutura premium ideal para coleções sofisticadas e personalizações de alto padrão"
-      ],
-      usability: [
-        "Ideal para visuais casuais elegantes, ambientes profissionais e eventos informais",
-        "Combina com jeans, sarja e alfaiataria",
-        "Pode ser utilizada como uniforme premium com identidade de marca"
-      ]
-    }
-  },
-  {
-    id: 2,
-    title: "CAMISA POLO MASCULINA",
-    fabric: "Cotton Pima com elastano",
-    image: img("polo-2.png"),
-    price: 99.90,
-    gallery: [
-      { src: img("polo-2.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
-      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
-      { src: img("polo-2-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
     specs: [
       { key: "GÊNERO", value: "MASCULINO" },
@@ -102,16 +68,16 @@ const PRODUCTS: Product[] = [
     }
   },
   {
-    id: 3,
+    id: 2,
     title: "CAMISA POLO MASCULINA",
     fabric: "Piquet Egípcio premium",
-    image: img("polo-3.png"),
-    price: 89.90,
+    image: img("polo-2.png"),
+    price: 105.00,
     gallery: [
-      { src: img("polo-3.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-2.png"), label: "VISÃO GERAL", objectPosition: "center center" },
       { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
       { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
-      { src: img("polo-3-detail.png"), label: "TECIDO", objectPosition: "center center" },
+      { src: img("polo-2-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
     specs: [
       { key: "GÊNERO", value: "MASCULINO" },
@@ -140,52 +106,54 @@ const PRODUCTS: Product[] = [
     }
   },
   {
+    id: 3,
+    title: "POLO BÁSICA MASCULINA WORK",
+    fabric: "Tecido Work (Poliéster com Viscose)",
+    image: img("polo-3.png"),
+    price: 55.00,
+    gallery: [
+      { src: img("polo-3.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("costas-masculino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-3-detail.png"), label: "TECIDO", objectPosition: "center center" },
+    ],
+    specs: [
+      { key: "GÊNERO", value: "MASCULINO" },
+      { key: "TECIDO", value: "TECIDO WORK" },
+      { key: "COMPOSIÇÃO", value: "65% POLIÉSTER 35% VISCOSE" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "A Polo Básica Masculina Work foi desenvolvida para atender demandas corporativas e linhas de alto volume com excelente custo-benefício. Confeccionada em poliéster com viscose, oferece leveza, toque macio e maior durabilidade no uso diário. Uma peça versátil, ideal para uniformização empresarial, equipes administrativas e ambientes profissionais que exigem apresentação alinhada com praticidade.",
+      composition: "65% Poliéster | 35% Viscose",
+      highlights: [
+        "Malha com predominância de poliéster, garantindo maior resistência e estabilidade",
+        "Viscose que adiciona maciez e conforto ao vestir",
+        "Boa respirabilidade para uso prolongado",
+        "Estrutura ideal para personalização (bordado, silk, DTF)",
+        "Fácil manutenção e secagem rápida",
+        "Peça pensada para uso contínuo e rotinas intensas"
+      ],
+      usability: [
+        "Ideal para uniformização empresarial, atendimento ao público, equipes comerciais e eventos corporativos",
+        "Combina com jeans, sarja e calças sociais",
+        "Excelente opção para compor kits corporativos e contratos recorrentes",
+        "Adequada para ambientes formais e semi-formais"
+      ]
+    }
+  },
+  {
     id: 4,
     title: "CAMISA POLO FEMININA",
-    fabric: "Piquet Pima com elastano",
+    fabric: "Cotton Pima com elastano",
     image: img("polo-4.png"),
-    price: 99.90,
+    price: 105.00,
     gallery: [
       { src: img("polo-4.png"), label: "VISÃO GERAL", objectPosition: "center center" },
       { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
       { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
       { src: img("polo-4-detail.png"), label: "TECIDO", objectPosition: "center center" },
-    ],
-    specs: [
-      { key: "GÊNERO", value: "FEMININO" },
-      { key: "TECIDO", value: "PIQUET PIMA" },
-      { key: "COMPOSIÇÃO", value: "95% ALGODÃO PIMA 5% ELASTANO EXTRA" },
-      { key: "COR", value: "PRETA" },
-      { key: "BORDADO", value: "3.5CM" }
-    ],
-    description: {
-      summary: "Polo premium confeccionada com tecido piquet de algodão Pima peruano e elastano, oferecendo toque extra macio, elasticidade ideal e caimento impecável. Uma peça básica essencial, produzida com a matéria-prima mais nobre do mundo: o algodão de fibra longa, altamente durável e resistente.\n\nSeu visual clean e acabamento refinado fazem da polo a base ideal para qualquer coleção de marca, valorizando o produto final com sofisticação e conforto.",
-      composition: "95% algodão Pima, 5% elastano extra",
-      highlights: [
-        "Tecido piquet com toque macio e textura clássica",
-        "Fibra longa que proporciona resistência, durabilidade e brilho natural",
-        "Leve elasticidade que garante liberdade de movimento",
-        "Modelagem com caimento perfeito que se adapta ao corpo",
-        "Estrutura premium ideal para coleções sofisticadas e personalizações de alto padrão"
-      ],
-      usability: [
-        "Ideal para visuais casuais elegantes, ambientes profissionais e eventos informais",
-        "Combina com jeans, sarja e alfaiataria",
-        "Pode ser utilizada como uniforme premium com identidade de marca"
-      ]
-    }
-  },
-  {
-    id: 5,
-    title: "CAMISA POLO FEMININA",
-    fabric: "Cotton Pima com elastano",
-    image: img("polo-5.png"),
-    price: 99.90,
-    gallery: [
-      { src: img("polo-5.png"), label: "VISÃO GERAL", objectPosition: "center center" },
-      { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
-      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
-      { src: img("polo-5-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
     specs: [
       { key: "GÊNERO", value: "FEMININO" },
@@ -202,7 +170,7 @@ const PRODUCTS: Product[] = [
         "Elastano para maior conforto e liberdade de movimento",
         "Gola estruturada com fechamento clássico em botões",
         "Modelagem slim fit",
-        "Toque macio, respirável and altamente durável"
+        "Toque macio, respirável e highly durável"
       ],
       usability: [
         "Ideal para ambientes casuais elegantes, trabalho, jantares e viagens",
@@ -213,16 +181,16 @@ const PRODUCTS: Product[] = [
     }
   },
   {
-    id: 6,
+    id: 5,
     title: "CAMISA POLO FEMININA",
     fabric: "Piquet Egípcio premium",
-    image: img("polo-6.png"),
-    price: 89.90,
+    image: img("polo-5.png"),
+    price: 105.00,
     gallery: [
-      { src: img("polo-6.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("polo-5.png"), label: "VISÃO GERAL", objectPosition: "center center" },
       { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
       { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
-      { src: img("polo-6-detail.png"), label: "TECIDO", objectPosition: "center center" },
+      { src: img("polo-5-detail.png"), label: "TECIDO", objectPosition: "center center" },
     ],
     specs: [
       { key: "GÊNERO", value: "FEMININO" },
@@ -250,6 +218,44 @@ const PRODUCTS: Product[] = [
       ]
     }
   },
+  {
+    id: 6,
+    title: "POLO BÁSICA FEMININA WORK",
+    fabric: "Tecido Work (Poliéster com Viscose)",
+    image: img("polo-6.png"),
+    price: 55.00,
+    gallery: [
+      { src: img("polo-6.png"), label: "VISÃO GERAL", objectPosition: "center center" },
+      { src: img("costas-feminino.png"), label: "COSTAS / DETALHES", objectPosition: "center center" },
+      { src: img("bordado-closeup.png"), label: "BORDADO", objectPosition: "center center" },
+      { src: img("polo-6-detail.png"), label: "TECIDO", objectPosition: "center center" },
+    ],
+    specs: [
+      { key: "GÊNERO", value: "FEMININO" },
+      { key: "TECIDO", value: "TECIDO WORK" },
+      { key: "COMPOSIÇÃO", value: "65% POLIÉSTER 35% VISCOSE" },
+      { key: "COR", value: "PRETA" },
+      { key: "BORDADO", value: "3.5CM" }
+    ],
+    description: {
+      summary: "A Polo Básica Feminina Work foi desenvolvida para atender demandas corporativas e linhas de alto volume com excelente custo-benefício. Confeccionada em poliéster com viscose, oferece leveza, toque macio e maior durabilidade no uso diário. Uma peça versátil, ideal para uniformização empresarial, equipes administrativas e ambientes profissionais que exigem apresentação alinhada com praticidade.",
+      composition: "65% Poliéster | 35% Viscose",
+      highlights: [
+        "Malha com predominância de poliéster, garantindo maior resistência e estabilidade",
+        "Viscose que adiciona maciez e conforto ao vestir",
+        "Boa respirabilidade para uso prolongado",
+        "Estrutura ideal para personalização (bordado, silk, DTF)",
+        "Fácil manutenção e secagem rápida",
+        "Peça pensada para uso contínuo e rotinas intensas"
+      ],
+      usability: [
+        "Ideal para uniformização empresarial, atendimento ao público, equipes comerciais e eventos corporativos",
+        "Combina com jeans, sarja e calças sociais",
+        "Excelente opção para compor kits corporativos e contratos recorrentes",
+        "Adequada para ambientes formais e semi-formais"
+      ]
+    }
+  }
 ];
 
 const UNIDADES = ["BUENO", "MARISTA", "JARDIM GOIÁS", "OESTE", "GESTÃO PATRIMONIAL"];
@@ -820,14 +826,32 @@ export function LopesApp() {
 
             <div className="p-6 md:p-8 flex-1 flex flex-col">
               {isSuccess ? (
-                <div className="flex flex-col h-full anim-in">
-                  <div className="bg-white border-2 border-[#0A0A0A] p-6 mb-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-[#0A0A0A] text-white flex items-center justify-center" style={{ transform: "rotate(12deg) translate(1rem,-1rem)" }}>
-                      <span className="font-anton text-2xl" style={{ transform: "rotate(-12deg)" }}>✓</span>
+                <div className="flex flex-col h-full anim-in space-y-6">
+                  <div className="bg-white border-2 border-[#0A0A0A] p-5 relative">
+                    <div className="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3 mb-4">
+                      <div>
+                        <p className="font-barlow font-bold text-[#5A5A5A] text-[11px] tracking-[0.1em]">PAGAMENTO VIA PIX</p>
+                        <p className="font-anton text-2xl text-[#0A0A0A]">{orderId}</p>
+                      </div>
+                      <span className="bg-[#0A0A0A] text-white px-3 py-1 font-barlow font-bold text-[11px] tracking-wider">
+                        PIX GERADO
+                      </span>
                     </div>
-                    <p className="font-barlow font-bold text-[#5A5A5A] text-[12px] tracking-[0.1em] mb-1">CÓDIGO DO PEDIDO</p>
-                    <p className="font-anton text-3xl mb-6">{orderId}</p>
-                    <div className="border-t-2 border-dotted border-[#C8C5BE] pt-6 space-y-4 font-barlow text-[14px] tracking-wide">
+
+                    {/* PIX QR CODE DISPLAY */}
+                    <div className="flex flex-col items-center justify-center p-3 bg-[#F0EFED] border-2 border-[#0A0A0A] mb-4">
+                      <img
+                        src={img("pix-qrcode.jpg")}
+                        alt="QR Code PIX Lopes"
+                        className="w-56 h-56 object-contain border border-[#0A0A0A] bg-white p-2 shadow-sm"
+                      />
+                      <p className="font-barlow font-bold text-[11px] tracking-[0.08em] text-[#0A0A0A] mt-3 text-center uppercase">
+                        Escaneie o QR Code acima para Pagar
+                      </p>
+                    </div>
+
+                    {/* RESUMO DO PEDIDO */}
+                    <div className="space-y-2 font-barlow text-[13px] tracking-wide pt-2 border-t border-dashed border-[#C8C5BE]">
                       <div className="flex justify-between">
                         <span className="text-[#5A5A5A]">CORRETOR</span>
                         <span className="font-bold">{corretorName}</span>
@@ -837,41 +861,51 @@ export function LopesApp() {
                         <span className="font-bold">{unidade}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5A5A5A]">TAMANHO</span>
-                        <span className="font-bold">{selectedSize}</span>
+                        <span className="text-[#5A5A5A]">PRODUTO</span>
+                        <span className="font-bold text-right max-w-[200px] truncate">{selectedProduct?.title}</span>
                       </div>
-                      <div className="flex justify-between mt-4 pt-4 border-t border-[#E5E5E5]">
-                        <span className="text-[#5A5A5A] max-w-[120px]">
-                          {selectedProduct?.title}<br />
-                          <span className="text-[10px]">{selectedProduct?.fabric}</span>
-                        </span>
-                        <span className="font-bold">{quantity}x</span>
+                      <div className="flex justify-between">
+                        <span className="text-[#5A5A5A]">TECIDO</span>
+                        <span className="font-bold text-right text-red-600">{selectedProduct?.fabric}</span>
                       </div>
-                      <div className="flex justify-between mt-2 font-barlow text-[13px] tracking-wide">
-                        <span className="text-[#5A5A5A]">PREÇO UNITÁRIO</span>
-                        <span className="font-bold">R$ {selectedProduct?.price.toFixed(2).replace('.', ',')}</span>
+                      <div className="flex justify-between">
+                        <span className="text-[#5A5A5A]">TAMANHO & QTD</span>
+                        <span className="font-bold">{selectedSize} ({quantity}x)</span>
                       </div>
-                      <div className="flex justify-between mt-2 pt-2 border-t border-dashed border-[#C8C5BE] font-anton text-[16px] text-[#0A0A0A]">
+                      <div className="flex justify-between pt-2 border-t border-[#0A0A0A] font-anton text-lg text-[#0A0A0A]">
                         <span>VALOR TOTAL</span>
                         <span>R$ {(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-auto flex flex-col gap-3">
+
+                  {/* BOTÃO DO WHATSAPP */}
+                  <div className="mt-auto space-y-3">
                     <a
-                      href={PAYMENT_URL}
+                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                        `Olá! Realizei o pagamento do meu pedido na Oficina Lopes. Segue o comprovante:\n\n` +
+                        `📌 *Código do Pedido:* ${orderId}\n` +
+                        `👤 *Corretor:* ${corretorName}\n` +
+                        `🏢 *Unidade:* ${unidade}\n` +
+                        `👕 *Produto:* ${selectedProduct?.title}\n` +
+                        `🧵 *Tecido:* ${selectedProduct?.fabric}\n` +
+                        `📏 *Tamanho:* ${selectedSize} (${quantity}x)\n` +
+                        `💰 *Valor Total:* R$ ${(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}\n\n` +
+                        `Estou enviando o comprovante em anexo nesta conversa.`
+                      )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150 flex items-center justify-between px-6"
+                      className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white border-2 border-[#0A0A0A] py-4 font-anton text-lg tracking-wide transition-colors duration-150 flex items-center justify-between px-6 shadow-md"
                     >
-                      <span>IR PARA PAGAMENTO</span>
-                      <span>▶</span>
+                      <span>ENVIAR COMPROVANTE VIA WHATSAPP</span>
+                      <span className="text-xl">💬</span>
                     </a>
+
                     <button
                       onClick={resetOrder}
-                      className="w-full bg-transparent text-[#0A0A0A] border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[12px] tracking-[0.12em] hover:bg-[#F0EFED] transition-colors duration-150"
+                      className="w-full bg-white text-[#0A0A0A] border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[12px] tracking-[0.12em] hover:bg-[#F0EFED] transition-colors duration-150"
                     >
-                      NOVO PEDIDO
+                      FAZER NOVO PEDIDO
                     </button>
                   </div>
                 </div>

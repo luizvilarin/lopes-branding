@@ -17,48 +17,50 @@ export function LopesApp() {
   const [orderId, setOrderId] = useState("");
   const [formError, setFormError] = useState("");
 
+  const WHATSAPP_NUMBER = "5562981000000";
+
   const products = [
     {
       id: 1,
       title: "CAMISA POLO MASCULINA",
-      fabric: "Piquet Pima com elastano",
+      fabric: "Cotton Pima com elastano",
       image: "/__mockup/images/polo-1.png",
-      price: 99.90,
+      price: 105.00,
     },
     {
       id: 2,
       title: "CAMISA POLO MASCULINA",
-      fabric: "Cotton Pima com elastano",
+      fabric: "Piquet Egípcio premium",
       image: "/__mockup/images/polo-2.png",
-      price: 99.90,
+      price: 105.00,
     },
     {
       id: 3,
-      title: "CAMISA POLO MASCULINA",
-      fabric: "Piquet Egípcio premium",
+      title: "POLO BÁSICA MASCULINA WORK",
+      fabric: "Tecido Work (Poliéster com Viscose)",
       image: "/__mockup/images/polo-3.png",
-      price: 89.90,
+      price: 55.00,
     },
     {
       id: 4,
       title: "CAMISA POLO FEMININA",
-      fabric: "Piquet Pima com elastano",
+      fabric: "Cotton Pima com elastano",
       image: "/__mockup/images/polo-4.png",
-      price: 99.90,
+      price: 105.00,
     },
     {
       id: 5,
       title: "CAMISA POLO FEMININA",
-      fabric: "Cotton Pima com elastano",
+      fabric: "Piquet Egípcio premium",
       image: "/__mockup/images/polo-5.png",
-      price: 99.90,
+      price: 105.00,
     },
     {
       id: 6,
-      title: "CAMISA POLO FEMININA",
-      fabric: "Piquet Egípcio premium",
+      title: "POLO BÁSICA FEMININA WORK",
+      fabric: "Tecido Work (Poliéster com Viscose)",
       image: "/__mockup/images/polo-6.png",
-      price: 89.90,
+      price: 55.00,
     },
   ];
 
@@ -452,16 +454,32 @@ export function LopesApp() {
 
             <div className="p-6 md:p-8 flex-1 flex flex-col">
               {isSuccess ? (
-                <div className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-500">
-                  <div className="bg-white border-2 border-[#0A0A0A] p-6 mb-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-[#0A0A0A] text-white flex items-center justify-center transform rotate-12 translate-x-4 -translate-y-4">
-                      <span className="font-anton text-2xl transform -rotate-12">✓</span>
+                <div className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-500 space-y-6">
+                  <div className="bg-white border-2 border-[#0A0A0A] p-5 relative">
+                    <div className="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3 mb-4">
+                      <div>
+                        <p className="font-barlow font-bold text-[#5A5A5A] text-[11px] tracking-[0.1em]">PAGAMENTO VIA PIX</p>
+                        <p className="font-anton text-2xl text-[#0A0A0A]">{orderId}</p>
+                      </div>
+                      <span className="bg-[#0A0A0A] text-white px-3 py-1 font-barlow font-bold text-[11px] tracking-wider">
+                        PIX GERADO
+                      </span>
                     </div>
-                    
-                    <p className="font-barlow font-bold text-[#5A5A5A] text-[12px] tracking-[0.1em] mb-1">CÓDIGO DO PEDIDO</p>
-                    <p className="font-anton text-3xl mb-6">{orderId}</p>
-                    
-                    <div className="border-t-2 border-dotted border-[#C8C5BE] pt-6 space-y-4 font-barlow text-[14px] tracking-wide">
+
+                    {/* PIX QR CODE DISPLAY */}
+                    <div className="flex flex-col items-center justify-center p-3 bg-[#F0EFED] border-2 border-[#0A0A0A] mb-4">
+                      <img
+                        src="/__mockup/images/pix-qrcode.jpg"
+                        alt="QR Code PIX Lopes"
+                        className="w-56 h-56 object-contain border border-[#0A0A0A] bg-white p-2 shadow-sm"
+                      />
+                      <p className="font-barlow font-bold text-[11px] tracking-[0.08em] text-[#0A0A0A] mt-3 text-center uppercase">
+                        Escaneie o QR Code acima para Pagar
+                      </p>
+                    </div>
+
+                    {/* RESUMO DO PEDIDO */}
+                    <div className="space-y-2 font-barlow text-[13px] tracking-wide pt-2 border-t border-dashed border-[#C8C5BE]">
                       <div className="flex justify-between">
                         <span className="text-[#5A5A5A]">CORRETOR</span>
                         <span className="font-bold">{corretorName}</span>
@@ -471,39 +489,51 @@ export function LopesApp() {
                         <span className="font-bold">{unidade}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5A5A5A]">TAMANHO</span>
-                        <span className="font-bold">{selectedSize}</span>
+                        <span className="text-[#5A5A5A]">PRODUTO</span>
+                        <span className="font-bold text-right max-w-[200px] truncate">{selectedProduct?.title}</span>
                       </div>
-                      <div className="flex justify-between mt-4 pt-4 border-t border-[#E5E5E5]">
-                        <span className="text-[#5A5A5A] max-w-[120px]">{selectedProduct?.title}<br/><span className="text-[10px]">{selectedProduct?.fabric}</span></span>
-                        <span className="font-bold">{quantity}x</span>
+                      <div className="flex justify-between">
+                        <span className="text-[#5A5A5A]">TECIDO</span>
+                        <span className="font-bold text-right text-red-600">{selectedProduct?.fabric}</span>
                       </div>
-                      <div className="flex justify-between mt-2 font-barlow text-[13px] tracking-wide">
-                        <span className="text-[#5A5A5A]">PREÇO UNITÁRIO</span>
-                        <span className="font-bold">R$ {selectedProduct?.price.toFixed(2).replace('.', ',')}</span>
+                      <div className="flex justify-between">
+                        <span className="text-[#5A5A5A]">TAMANHO & QTD</span>
+                        <span className="font-bold">{selectedSize} ({quantity}x)</span>
                       </div>
-                      <div className="flex justify-between mt-2 pt-2 border-t border-dashed border-[#C8C5BE] font-anton text-[16px] text-[#0A0A0A]">
+                      <div className="flex justify-between pt-2 border-t border-[#0A0A0A] font-anton text-lg text-[#0A0A0A]">
                         <span>VALOR TOTAL</span>
                         <span>R$ {(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}</span>
                       </div>
                     </div>
                   </div>
-                  
-                  <div className="mt-auto flex flex-col gap-3">
+
+                  {/* BOTÃO DO WHATSAPP */}
+                  <div className="mt-auto space-y-3">
                     <a
-                      href={PAYMENT_URL}
+                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                        `Olá! Realizei o pagamento do meu pedido na Oficina Lopes. Segue o comprovante:\n\n` +
+                        `📌 *Código do Pedido:* ${orderId}\n` +
+                        `👤 *Corretor:* ${corretorName}\n` +
+                        `🏢 *Unidade:* ${unidade}\n` +
+                        `👕 *Produto:* ${selectedProduct?.title}\n` +
+                        `🧵 *Tecido:* ${selectedProduct?.fabric}\n` +
+                        `📏 *Tamanho:* ${selectedSize} (${quantity}x)\n` +
+                        `💰 *Valor Total:* R$ ${(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}\n\n` +
+                        `Estou enviando o comprovante em anexo nesta conversa.`
+                      )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] py-4 font-anton text-xl tracking-wide hover:bg-white hover:text-[#0A0A0A] transition-colors duration-150 flex items-center justify-between px-6"
+                      className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white border-2 border-[#0A0A0A] py-4 font-anton text-lg tracking-wide transition-colors duration-150 flex items-center justify-between px-6 shadow-md"
                     >
-                      <span>IR PARA PAGAMENTO</span>
-                      <span>▶</span>
+                      <span>ENVIAR COMPROVANTE VIA WHATSAPP</span>
+                      <span className="text-xl">💬</span>
                     </a>
+
                     <button
                       onClick={resetOrder}
-                      className="w-full bg-transparent text-[#0A0A0A] border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[12px] tracking-[0.12em] hover:bg-[#F0EFED] transition-colors duration-150"
+                      className="w-full bg-white text-[#0A0A0A] border-2 border-[#0A0A0A] py-3 font-barlow font-bold text-[12px] tracking-[0.12em] hover:bg-[#F0EFED] transition-colors duration-150"
                     >
-                      NOVO PEDIDO
+                      FAZER NOVO PEDIDO
                     </button>
                   </div>
                 </div>
