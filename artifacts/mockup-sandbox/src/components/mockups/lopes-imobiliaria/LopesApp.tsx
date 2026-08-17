@@ -17,7 +17,7 @@ export function LopesApp() {
   const [orderId, setOrderId] = useState("");
   const [formError, setFormError] = useState("");
 
-  const WHATSAPP_NUMBER = "5562981000000";
+  const WHATSAPP_NUMBER = "5562981408748";
 
   const products = [
     {

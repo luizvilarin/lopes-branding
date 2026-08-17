@@ -27,7 +27,7 @@ type Product = {
   description: ProductDescription;
 };
 
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "5562981000000";
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "5562981408748";
 
 const PRODUCTS: Product[] = [
   {
