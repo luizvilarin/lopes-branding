@@ -329,19 +329,19 @@ function ProductPage({
         <div className="font-barlow text-[11px] tracking-[0.1em] text-[#C8C5BE]">INTERNO</div>
       </div>
 
-      <div className="max-w-[1280px] mx-auto border-x-2 border-[#0A0A0A]">
+      <div className="w-full">
         {/* Breadcrumb */}
-        <div className="border-b border-[#D0CFC9] px-6 md:px-10 py-3 flex items-center gap-2 font-barlow text-[11px] tracking-[0.1em] text-[#5A5A5A]">
+        <div className="border-b border-[#D0CFC9] px-6 md:px-12 lg:px-16 py-3 flex items-center gap-2 font-barlow text-[11px] md:text-[12px] tracking-[0.1em] text-[#5A5A5A] w-full">
           <button onClick={onClose} className="hover:text-[#0A0A0A] transition-colors">COLEÇÃO</button>
           <span>›</span>
           <span className="text-[#0A0A0A] font-bold">{product.title}</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 border-b-2 border-[#0A0A0A]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 border-b-2 border-[#0A0A0A] w-full">
           {/* Gallery panel */}
-          <div className="border-b-2 lg:border-b-0 lg:border-r-2 border-[#0A0A0A] flex flex-col bg-[#F0EFED]">
+          <div className="border-b-2 lg:border-b-0 lg:border-r-2 border-[#0A0A0A] flex flex-col bg-[#F0EFED] w-full">
             {/* Main image */}
-            <div className="relative overflow-hidden bg-[#F0EFED]" style={{ aspectRatio: "3/4" }}>
+            <div className="relative overflow-hidden bg-[#F0EFED] w-full flex items-center justify-center max-h-[80vh]" style={{ aspectRatio: "4/5" }}>
               <img
                 key={activeIdx}
                 src={active.src}
