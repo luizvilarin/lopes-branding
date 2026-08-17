@@ -512,13 +512,13 @@ export function LopesApp() {
                     <a
                       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                         `Olá! Realizei o pagamento do meu pedido na LOPES SHOP. Segue o comprovante:\n\n` +
-                        `📌 *Código do Pedido:* ${orderId}\n` +
-                        `👤 *Corretor:* ${corretorName}\n` +
-                        `🏢 *Unidade:* ${unidade}\n` +
-                        `👕 *Produto:* ${selectedProduct?.title}\n` +
-                        `🧵 *Tecido:* ${selectedProduct?.fabric}\n` +
-                        `📏 *Tamanho:* ${selectedSize} (${quantity}x)\n` +
-                        `💰 *Valor Total:* R$ ${(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}\n\n` +
+                        `*Código do Pedido:* ${orderId}\n` +
+                        `*Corretor:* ${corretorName}\n` +
+                        `*Unidade:* ${unidade}\n` +
+                        `*Produto:* ${selectedProduct?.title}\n` +
+                        `*Tecido:* ${selectedProduct?.fabric}\n` +
+                        `*Tamanho:* ${selectedSize} (${quantity}x)\n` +
+                        `*Valor Total:* R$ ${(selectedProduct ? selectedProduct.price * quantity : 0).toFixed(2).replace('.', ',')}\n\n` +
                         `Estou enviando o comprovante em anexo nesta conversa.`
                       )}`}
                       target="_blank"
@@ -526,7 +526,7 @@ export function LopesApp() {
                       className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white border-2 border-[#0A0A0A] py-4 font-anton text-lg tracking-wide transition-colors duration-150 flex items-center justify-between px-6 shadow-md"
                     >
                       <span>ENVIAR COMPROVANTE VIA WHATSAPP</span>
-                      <span className="text-xl">💬</span>
+                      <span>▶</span>
                     </a>
 
                     <button
