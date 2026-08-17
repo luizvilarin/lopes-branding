@@ -291,7 +291,7 @@ export function LopesApp() {
         </div>
       </nav>
 
-      <main className="max-w-[1280px] mx-auto border-x-2 border-[#0A0A0A] w-full bg-white">
+      <main className="max-w-[1280px] mx-auto border-x-2 border-[#0A0A0A] w-full bg-white overflow-hidden">
         
         {/* 2. Hero Section */}
         <section className="grid grid-cols-1 md:grid-cols-3 border-b-2 border-[#0A0A0A]">
@@ -416,7 +416,7 @@ export function LopesApp() {
         <footer className="bg-[#0A0A0A] text-white pt-20 pb-8 px-4 md:px-8">
           <div className="w-full flex justify-center mb-16 overflow-hidden">
             <h2 className="font-anton text-[clamp(48px,8vw,100px)] leading-none tracking-[-0.02em] text-center w-full">
-              OFFICINE LOPES
+              LOPES SHOP
             </h2>
           </div>
           
@@ -511,7 +511,7 @@ export function LopesApp() {
                   <div className="mt-auto space-y-3">
                     <a
                       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                        `Olá! Realizei o pagamento do meu pedido na Oficina Lopes. Segue o comprovante:\n\n` +
+                        `Olá! Realizei o pagamento do meu pedido na LOPES SHOP. Segue o comprovante:\n\n` +
                         `📌 *Código do Pedido:* ${orderId}\n` +
                         `👤 *Corretor:* ${corretorName}\n` +
                         `🏢 *Unidade:* ${unidade}\n` +
